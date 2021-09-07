@@ -1,0 +1,23 @@
+{
+    "title" : "[ArcCW] OSII",
+    "type" : "weapon",
+    "tags" : ["realism","roleplay"],
+	"ignore":
+	[
+		"*.cmd",
+		"*.ini",
+		"*.lnk",
+		"*.url",
+		"*.psd",
+        "*.bat",
+        ".git/*",
+        ".gitignore",
+        ".gitattributes",
+        "*.code-workspace",
+        "LICENSE",
+        "osii.jpg",
+        "osii.png",
+        "osii.pdn",
+        "README.md"
+	]
+}
