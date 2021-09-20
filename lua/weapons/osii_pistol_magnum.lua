@@ -83,4 +83,12 @@ SWEP.Stats	= {
 			seq = "put_away",
 		},
 	},
+	["ADS"] = {
+		["Viewmodel"] = {
+			pos = Vector(-4.05, -2, 1.3),
+			ang = Angle()
+		},
+		["FOV"] = 75,
+		["Time"] = 0.25,
+	}
 }

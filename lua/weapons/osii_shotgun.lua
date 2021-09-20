@@ -38,8 +38,8 @@ SWEP.Stats	= {
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, 0),
-			["ang"] = Angle(-5, 0, 0)
+			["pos"] = Vector(0, 0, -1),
+			["ang"] = Angle(0, 0, 0)
 		},
 		["Recoil mult"] = 8,
 		["Recoil decay"] = 16,
@@ -87,4 +87,12 @@ SWEP.Stats	= {
 			seq = "put_away",
 		},
 	},
+	["ADS"] = {
+		["Viewmodel"] = {
+			pos = Vector(-2, -1, 0),
+			ang = Angle()
+		},
+		["FOV"] = 75,
+		["Time"] = 0.25,
+	}
 }

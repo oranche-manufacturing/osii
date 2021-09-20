@@ -168,7 +168,7 @@ function SWEP:Think()
 end
 
 function SWEP:TranslateFOV(fov)
-	return Lerp( math.pow( math.sin( self:GetADSDelta()*math.pi * 0.5 ), 2 ), fov, self.Stats["ADS"] and self.Stats["ADS"]["FOV"] or fov )
+	return Lerp( math.pow( math.sin( self:GetADSDelta() * math.pi * 0.5 ), 2 ), fov, self.Stats["ADS"]["FOV"] )
 end
 
 function SWEP:AdjustMouseSensitivity(def)
@@ -187,6 +187,8 @@ end
 
 function SWEP:Deploy()
 	self:SetHoldType( "pistol" )
+	self:SetADSDelta(0)
+	self:SetReloadDelay(CurTime())
 
 	local playa = self:SendAnim( self.qa["draw"] )
 	if playa then
@@ -197,6 +199,8 @@ function SWEP:Deploy()
 end
 
 function SWEP:Holster( wep )
+	self:SetReloadLoadDelay(0)
+
 	return true
 end
 
@@ -204,11 +208,29 @@ SWEP.BobScale = 0
 SWEP.SwayScale = 0
 local pvel = 0
 
-local LookX = 0
-local LastX = 0
-local LookY = 0
-local LastY = 0
+local yaaa = Angle()
+local laaa = Angle()
 
+function SWEP:PreDrawViewModel(vm, wep, p)
+	if vm == p:GetViewModel(0) then
+		--[[local x = p:EyeAngles().x
+		x = math.NormalizeAngle( x )
+		LookX = Lerp( math.min( FrameTime(), 1 ), LookX, (x - LastX) )
+		LastX = x
+		
+		local y = p:EyeAngles().y
+		y = math.NormalizeAngle( y )
+		LookY = Lerp( math.min( FrameTime(), 1 ), LookY, (y - LastY) )
+		LastY = y]]
+
+		yaaa = LerpAngle( FrameTime() * 4, yaaa, Angle( ( p:EyeAngles().x - laaa.x ), ( p:EyeAngles().y - laaa.y ), 0 ) )
+		laaa.x = p:EyeAngles().x
+		laaa.y = p:EyeAngles().y
+	end
+end
+
+local midpointpos = Vector(-2, -4, -2)
+local midpointang = Angle(0, 0, -2)
 function SWEP:GetViewModelPosition(pos, ang)
 	local p = LocalPlayer()
 	local offset = Vector()
@@ -237,46 +259,39 @@ function SWEP:GetViewModelPosition(pos, ang)
 	end
 
 	do -- Moving
-		local mult = 1 * ( pvel / p:GetWalkSpeed() )
-		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 ), 2 ) * 0.5 * mult )
-		offset.y = offset.y + ( math.sin( CurTime() ) * 0 * mult )
-		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 ), 2 ) * -0.5 * mult )
+		local mult = Lerp( self:GetADSDelta(), 0.8, 0.4 ) * ( pvel / p:GetWalkSpeed() )
+		local spe = 1
+		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2 ) * 0.4 * mult )
+		offset.y = offset.y + ( math.sin( CurTime() * spe ) * 0 * mult )
+		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2 ) * -0.6 * mult )
 
-		affset.x = affset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 4 ), 2 ) * 1 * mult )
-		affset.y = affset.y + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 ), 2 ) * -1 * mult )
-		affset.z = affset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 ), 2 ) * 0.5 * mult )
+		affset.x = affset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 4 * spe ), 2 ) * 1 * mult )
+		affset.y = affset.y + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2 ) * -1 * mult )
+		affset.z = affset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2 ) * 0.5 * mult )
 	end
 
 	do -- Sway
-		local x = p:EyeAngles().x
-		LookX = math.Approach( LookX, (x - LastX), FrameTime() * math.max( LookX, 0.2 ) )
-		LookX = math.Clamp(LookX, -1, 1)
-		LastX = x
-		offset.z = offset.z + LookX * 0.25
-		affset.x = affset.x + LookX * -15
+		local mult = Lerp( self:GetADSDelta(), 0.2, 0.01 )
+		offset.z = offset.z + yaaa.x * 1 * mult
+		affset.x = affset.x + yaaa.x * -1 * mult
 
-		local y = p:EyeAngles().y
-		LookY = math.Approach( LookY, (y - LastY), FrameTime() * 1 )
-		LookY = math.Clamp(LookY, -1, 1)
-		LastY = y
-		offset.x = offset.x + LookY * 0.5
-		affset.y = affset.y + LookY * 2
+		offset.x = offset.x + yaaa.y * 1 * mult
+		affset.y = affset.y + yaaa.y * 1 * mult
 	end
 
 	do -- ADS
 		local mult = math.pow( math.sin( self:GetADSDelta() * math.pi * 0.5 ), 2 )
-		if self.IronSightsPos then
+		if self.Stats["ADS"]["Viewmodel"].pos then
 			local midpoint = mult * math.cos(mult * (math.pi / 2))
-			offset = offset + ( self.IronSightsPos * mult )
+			local contset = ( self.Stats["ADS"]["Viewmodel"].pos * mult )
 
-			midpointpos.x = self.IronSightsPos.x * 0.5
-			offset = offset + ( midpointpos * midpoint )
+			contset = contset + ( midpointpos * midpoint )
+
+			offset = LerpVector( mult, offset, contset )
 		end
 
-		if self.IronSightsAng then
-			angset.x = angset.x + ( self.IronSightsAng.x * mult )
-			angset.y = angset.y + ( self.IronSightsAng.y * mult )
-			angset.z = angset.z + ( self.IronSightsAng.z * mult )
+		if self.Stats["ADS"]["Viewmodel"].ang then
+			affset = LerpAngle( mult, affset, self.Stats["ADS"]["Viewmodel"].ang )
 		end
 
 		self.ViewModelFOV = Lerp(mult, self.ViewModelFOV_Init, self.ViewModelFOV_Init*1.1)
