@@ -34,7 +34,7 @@ SWEP.Stats	= {
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol.Fire",
+			["Fire"]					= "OSII.Pistol_Magnum.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
