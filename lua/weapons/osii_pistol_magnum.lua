@@ -23,7 +23,7 @@ SWEP.Stats	= {
 		["Damage"]						= Range( 17, 30 ),
 		["Range"]						= Range( 250, 1000 ), -- hammer units
 		["Spread"]						= Range( 2, 2 ), -- degree(s)
-		["Force"]						= 5
+		["Force"]						= 3
 	},
 	["Function"]	= {
 		["Fire delay"]					= 0.3, -- Mechanical firerate

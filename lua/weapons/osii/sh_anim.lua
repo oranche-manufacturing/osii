@@ -30,7 +30,9 @@ function SWEP:SendAnim(name, ind)
 	local dur = vm:SequenceDuration() / ( name.rate or 1 )
 	self:SetNextIdle( CurTime() + dur )
 
+	if name.events then self:PlaySoundTable( name.events, 1 / ( name.rate or 1 ) ) end
 	if name.time_load then self:SetReloadLoadDelay( CurTime() + name.time_load ) end
+
 	-- Our confirmation letter
 	return { dur }
 end
@@ -44,6 +46,50 @@ if CLIENT then
 			ent:AddVCDSequenceToGestureSlot( GESTURE_SLOT_ATTACK_AND_RELOAD, seq, starttime, true )
 		--end
 	end)
+end
+
+SWEP.EventTable = { [1] = {} }
+function SWEP:PlaySoundTable(soundtable, mult)
+	local owner = self:GetOwner()
+
+	mult = 1 / (mult or 1)
+
+	for _, v in pairs(soundtable) do
+		if table.IsEmpty(v) then continue end
+
+		local ttime
+		if v.t then
+			ttime = (v.t * mult)
+		else
+			continue
+		end
+		if ttime < 0 then continue end
+		if !(IsValid(self) and IsValid(owner)) then continue end
+
+		local jhon = CurTime() + ttime
+
+		if !self.EventTable[1] then self.EventTable[1] = {} end
+
+		for i, de in ipairs(self.EventTable) do
+			if de[jhon] then
+				if !self.EventTable[i+1] then self.EventTable[i+1] = {} continue end
+			else
+				self.EventTable[i][jhon] = v
+			end
+		end
+
+	end
+end
+
+function SWEP:PlayEvent(v)
+	if !v or !istable(v) then error("no event to play") end
+
+	if v.s then
+		if v.s_km then
+			self:StopSound(v.s)
+		end
+		self:EmitSound(v.s, v.l, v.p, v.v, v.c or CHAN_AUTO)
+	end
 end
 
 if CLIENT then

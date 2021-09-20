@@ -23,7 +23,7 @@ SWEP.Stats	= {
 		["Damage"]						= Range( 3, 10 ),
 		["Range"]						= Range( 300, 600 ), -- hammer units
 		["Spread"]						= Range( 6, 6 ), -- degree(s)
-		["Force"]						= 1
+		["Force"]						= 2
 	},
 	["Function"]	= {
 		["Fire delay"]					= 1, -- Mechanical firerate
@@ -34,7 +34,7 @@ SWEP.Stats	= {
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol.Fire",
+			["Fire"]					= "OSII.Shotgun.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
@@ -56,32 +56,39 @@ SWEP.Stats	= {
 		["fire"]	= {
 			{
 				seq = "fire1",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire2",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire3",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 		},
 		["reload_enter"]	= {
 			seq = "reload_enter",
-			tpanim = tpa[1]
+			tpanim = tpa[1],
+			events = { { t = 0, s = "OSII.Shotgun.Reload_Start" } }
 		},
 		["reload_insert"]	= {
 			seq = "reload_insert",
 			tpanim = tpa[1],
-			time_load = 0.3
+			time_load = 0.3,
+			events = { { t = 0, s = "OSII.Shotgun.Reload_Insert" } }
 		},
 		["reload_exit"]	= {
 			seq = "reload_exit",
-			tpanim = tpa[1]
+			tpanim = tpa[1],
+			events = { { t = 0, s = "OSII.Shotgun.Reload_Finish" } }
 		},
 		["draw"]	= {
 			seq = "ready",
+			events = { { t = 0, s = "OSII.Shotgun.Pump" } }
 		},
 		["holster"]	= {
 			seq = "put_away",

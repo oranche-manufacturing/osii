@@ -36,58 +36,7 @@ function Range( m, a )
 end
 
 -- 4
-local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
-SWEP.Stats	= {
-	["Bullet"]		= {
-		["Count"]						= 1,
-		["Damage"]						= Range( 3, 10 ),
-		["Range"]						= Range( 250, 1000 )
-	},
-	["Function"]	= {
-		["Fire delay"]					= 0.1,
-		["Fire recovery delay"]			= 0.2,
-		["Ammo used per shot"]			= 1,
-		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 1, 1 )
-	},
-	["Appearance"]	= {
-		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol.Fire",
-			["Dry"]						= "OSII.Pistol.Dry",
-		},
-	},
-	["Magazines"]	= {
-		["Amount reloaded"]				= 15,
-		["Maximum loaded"]				= 15,
-		["Ammo type"]					= "pistol",
-	},
-	["Animation"] = {
-		["idle"]	= {
-			seq = "idle",
-		},
-		["fire"]	= {
-			{
-				seq = "fire_rand1",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire_rand2",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire_rand3",
-				tpanim = tpa[2]
-			},
-		},
-		["reload"]	= {
-			seq = "reload",
-			tpanim = tpa[1]
-		},
-		["draw"]	= {
-			seq = "draw",
-		},
-	},
-}
+SWEP.Stats	= {}
 
 -- 5
 function SWEP:Initialize()
@@ -135,7 +84,17 @@ function SWEP:Think()
 		end
 
 		if self:GetNextIdle() <= CurTime() then
-			--self:SendAnim(self.qa["idle"])
+			self:SendAnim(self.qa["idle"])
+		end
+		
+		for i, v in ipairs(self.EventTable) do
+			for ed, bz in pairs(v) do
+				if ed <= CurTime() then
+					self:PlayEvent(bz)
+					self.EventTable[i][ed] = nil
+					if table.IsEmpty(v) and i != 1 then self.EventTable[i] = nil end
+				end
+			end
 		end
 
 		if self:GetReloadLoadDelay() != 0 and self:GetReloadLoadDelay() <= CurTime() then
@@ -148,7 +107,7 @@ function SWEP:Think()
 		end
 
 		if self:GetReloadingState() and self:GetReloadDelay() < CurTime() then
-			if self:Clip1() < self.Stats["Magazines"]["Maximum loaded"] then
+			if self:Clip1() < self.Stats["Magazines"]["Maximum loaded"] and self:Ammo1() > 0 then
 				self:InsertReload()
 			else
 				self:FinishReload()
@@ -200,6 +159,7 @@ end
 
 function SWEP:Holster( wep )
 	self:SetReloadLoadDelay(0)
+	self:SetReloadingState(false)
 
 	return true
 end
