@@ -11,7 +11,7 @@ SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3/fp/magnum.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
 SWEP.WorldModel				= "models/weapons/w_pist_deagle.mdl"
 SWEP.UseHands				= true
 
@@ -41,6 +41,8 @@ SWEP.Stats	= {
 			["pos"] = Vector(0, 0, 0),
 			["ang"] = Angle(-5, 0, 0)
 		},
+		["Recoil mult"] = 4,
+		["Recoil decay"] = 16,
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 8,

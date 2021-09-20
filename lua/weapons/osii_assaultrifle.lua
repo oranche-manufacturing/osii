@@ -11,7 +11,7 @@ SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3/fp/assault_rifle.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/assault_rifle.mdl"
 SWEP.WorldModel				= "models/weapons/w_rif_m4a1.mdl"
 SWEP.UseHands				= true
 
@@ -26,7 +26,7 @@ SWEP.Stats	= {
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.09, -- Mechanical firerate
+		["Fire delay"]					= (60/15)/60, -- Mechanical firerate
 		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,

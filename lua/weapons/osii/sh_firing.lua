@@ -2,6 +2,7 @@
 -- Firing
 
 function SWEP:PrimaryAttack(forced)
+	local p = self:GetOwner()
 	if self:GetFireDelay() > CurTime() then return false end
 	if !forced and self:GetFireRecoveryDelay() > CurTime() then return false end
 	if self:GetReloadDelay() > CurTime() then return false end
@@ -33,7 +34,9 @@ function SWEP:PrimaryAttack(forced)
 
 	self:SetClip1( math.max( self:Clip1() - self.Stats["Function"]["Ammo used per shot"], 0) )
 
-	--self:TakePrimaryAmmo( 1 )
+	if p:IsPlayer() then
+		p.randv = VectorRand() * ( self.Stats["Appearance"]["Recoil mult"] or 1 )
+	end	
 end
 
 function SWEP:SecondaryAttack()

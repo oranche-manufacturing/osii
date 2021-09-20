@@ -11,7 +11,7 @@ SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3/fp/magnum.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
 SWEP.WorldModel				= "models/weapons/w_pist_p228.mdl"
 SWEP.UseHands				= true
 
@@ -38,7 +38,7 @@ SWEP.Stats	= {
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, 0),
+			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-5, 0, 0)
 		},
 	},

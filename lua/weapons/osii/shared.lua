@@ -96,6 +96,8 @@ function SWEP:Initialize()
 
 	-- Quick for the animation table
 	self.qa = self.Stats["Animation"]
+
+	self.ViewModelFOV_Init = self.ViewModelFOV
 end
 
 function SWEP:OnReloaded()
@@ -110,6 +112,7 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 3, "ReloadDelay")
 	self:NetworkVar("Float", 4, "ReloadLoadDelay")
 	self:NetworkVar("Float", 5, "NextIdle")
+	self:NetworkVar("Float", 6, "ADSDelta")
 
 	self:NetworkVar("Bool", 0, "ReloadingState")
 end
@@ -132,7 +135,7 @@ function SWEP:Think()
 		end
 
 		if self:GetNextIdle() <= CurTime() then
-			self:SendAnim(self.qa["idle"])
+			--self:SendAnim(self.qa["idle"])
 		end
 
 		if self:GetReloadLoadDelay() != 0 and self:GetReloadLoadDelay() <= CurTime() then
@@ -151,61 +154,35 @@ function SWEP:Think()
 				self:FinishReload()
 			end
 		end
+		
+		if CLIENT and p.randv then
+			local fft = FrameTime() * ( self.Stats["Appearance"]["Recoil decay"] or 8 )
+			p.randv.x = math.Approach(p.randv.x, 0, fft)
+			p.randv.y = math.Approach(p.randv.y, 0, fft)
+			p.randv.z = math.Approach(p.randv.z, 0, fft)
+		end
+		
+		local canzoom = self:GetOwner():KeyDown(IN_ATTACK2) and !( self:GetReloadDelay() > CurTime() )
+		self:SetADSDelta( math.Approach( self:GetADSDelta(), ( canzoom and 1 or 0 ), FrameTime() / ( self.Stats["ADS"] and self.Stats["ADS"]["Time"] or 0.3 ) ) )
 	end
 end
 
-function SWEP:Reload()
-	if self:GetReloadDelay() > CurTime() then return end
-	if math.min( self:Ammo1(), self.Stats["Magazines"]["Maximum loaded"] - self:Clip1() ) <= 0 then return end
-
-	return self:StartReload()
+function SWEP:TranslateFOV(fov)
+	return Lerp( math.pow( math.sin( self:GetADSDelta()*math.pi * 0.5 ), 2 ), fov, self.Stats["ADS"] and self.Stats["ADS"]["FOV"] or fov )
 end
 
-function SWEP:StartReload()
-	if self:GetReloadingState() then return end
-
-	local selanim = nil
-	if self.qa["reload_enter"] then
-		selanim = self.qa["reload_enter"]
-	elseif self:Clip1() == 0 and self.qa["reload_empty"] then
-		selanim = self.qa["reload_empty"]
-	elseif self.qa["reload_full"] then
-		selanim = self.qa["reload_full"]
-	elseif self.qa["reload"] then
-		selanim = self.qa["reload"]
-	else
-		return
-	end
-
-	local playa = self:SendAnim( selanim )
-	if playa then
-		self:SetReloadDelay( CurTime() + playa[1] )
-	end
-
-	self:SetReloadingState(true)
-	self:SetBurstCount(0)
-	self:SetReloadDelay( CurTime() + self:GetVM():SequenceDuration() )
-end
-
-function SWEP:InsertReload()
-	if self.qa["reload_insert"] then
-		local playa = self:SendAnim(self.qa["reload_insert"])
-		self:SetReloadDelay( CurTime() + self:GetVM():SequenceDuration() )
+function SWEP:AdjustMouseSensitivity(def)
+	if self:GetADSDelta() > 0 then
+		return Lerp( self:GetADSDelta(), ( math.Clamp(GetConVar("fov_desired"):GetInt(), 75, 100) ), self:GetOwner():GetFOV() ) / ( math.Clamp(GetConVar("fov_desired"):GetInt(), 75, 100) )
 	end
 end
 
-function SWEP:FinishReload()
-	if self.qa["reload_exit"] then
-		local playa = self:SendAnim(self.qa["reload_exit"])
-		self:SetReloadDelay( CurTime() + self:GetVM():SequenceDuration() )
+function SWEP:CalcView(p, pos, ang, fov)
+	if p.randv then
+		pos = pos + p.randv
 	end
-	self:SetReloadingState(false)
-end
 
-function SWEP:Load()
-	local thing = math.min( self:Ammo1(), self.Stats["Magazines"]["Amount reloaded"], self.Stats["Magazines"]["Maximum loaded"] - self:Clip1() )
-	self:GetOwner():SetAmmo( self:Ammo1() - thing, self:GetPrimaryAmmoType() )
-	self:SetClip1( self:Clip1() + thing )
+	return pos, ang, fov
 end
 
 function SWEP:Deploy()
@@ -223,13 +200,86 @@ function SWEP:Holster( wep )
 	return true
 end
 
+SWEP.BobScale = 0
+SWEP.SwayScale = 0
+local pvel = 0
+
+local LookX = 0
+local LastX = 0
+local LookY = 0
+local LastY = 0
+
 function SWEP:GetViewModelPosition(pos, ang)
+	local p = LocalPlayer()
 	local offset = Vector()
 	local affset = Angle()
+	
+	if IsValid(p) then
+		pvel = math.Approach(pvel, p:GetVelocity():Length(), FrameTime() * ( p:GetWalkSpeed() * 2 ) )
+	else
+		pvel = 0
+	end
 
-	do
+	do -- Offset
 		offset = offset + self.Stats["Appearance"]["Viewmodel"].pos
 		affset = affset + self.Stats["Appearance"]["Viewmodel"].ang
+	end
+
+	do -- Idle
+		local mult = 1
+		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 ), 2 ) * 0 * mult )
+		offset.y = offset.y + ( math.sin( CurTime() ) * 0 * mult )
+		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 0.5 ), 2 ) * 0.125 * mult )
+
+		affset.x = affset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.25 * 2 ), 2 ) * -0.125 * mult )
+		affset.y = affset.y + ( math.pow( math.sin( CurTime() * math.pi * 0.25 * 1 ), 2 ) * -0.25 * mult )
+		affset.z = affset.z + ( math.pow( math.sin( CurTime() * math.pi * 0.5 ), 2 ) * 0.125 * mult )
+	end
+
+	do -- Moving
+		local mult = 1 * ( pvel / p:GetWalkSpeed() )
+		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 ), 2 ) * 0.5 * mult )
+		offset.y = offset.y + ( math.sin( CurTime() ) * 0 * mult )
+		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 ), 2 ) * -0.5 * mult )
+
+		affset.x = affset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 4 ), 2 ) * 1 * mult )
+		affset.y = affset.y + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 ), 2 ) * -1 * mult )
+		affset.z = affset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 ), 2 ) * 0.5 * mult )
+	end
+
+	do -- Sway
+		local x = p:EyeAngles().x
+		LookX = math.Approach( LookX, (x - LastX), FrameTime() * math.max( LookX, 0.2 ) )
+		LookX = math.Clamp(LookX, -1, 1)
+		LastX = x
+		offset.z = offset.z + LookX * 0.25
+		affset.x = affset.x + LookX * -15
+
+		local y = p:EyeAngles().y
+		LookY = math.Approach( LookY, (y - LastY), FrameTime() * 1 )
+		LookY = math.Clamp(LookY, -1, 1)
+		LastY = y
+		offset.x = offset.x + LookY * 0.5
+		affset.y = affset.y + LookY * 2
+	end
+
+	do -- ADS
+		local mult = math.pow( math.sin( self:GetADSDelta() * math.pi * 0.5 ), 2 )
+		if self.IronSightsPos then
+			local midpoint = mult * math.cos(mult * (math.pi / 2))
+			offset = offset + ( self.IronSightsPos * mult )
+
+			midpointpos.x = self.IronSightsPos.x * 0.5
+			offset = offset + ( midpointpos * midpoint )
+		end
+
+		if self.IronSightsAng then
+			angset.x = angset.x + ( self.IronSightsAng.x * mult )
+			angset.y = angset.y + ( self.IronSightsAng.y * mult )
+			angset.z = angset.z + ( self.IronSightsAng.z * mult )
+		end
+
+		self.ViewModelFOV = Lerp(mult, self.ViewModelFOV_Init, self.ViewModelFOV_Init*1.1)
 	end
 
 	ang:RotateAroundAxis( ang:Right(),		affset.x )
@@ -238,6 +288,9 @@ function SWEP:GetViewModelPosition(pos, ang)
 	pos = pos + offset.x * ang:Right()
 	pos = pos + offset.y * ang:Forward()
 	pos = pos + offset.z * ang:Up()
+	if p.randv then
+		pos = pos + p.randv
+	end
 	
 	return pos, ang
 end
@@ -281,6 +334,8 @@ end]]
 
 -- Shared
 AddCSLuaFile("sh_anim.lua")
-AddCSLuaFile("sh_firinglua")
+AddCSLuaFile("sh_firing.lua")
+AddCSLuaFile("sh_reload.lua")
 include("sh_anim.lua")
 include("sh_firing.lua")
+include("sh_reload.lua")
