@@ -1,0 +1,18 @@
+VertexLitGeneric
+{
+	$basetexture			"gh3/assault_rifle/assault_rifle"
+	$bumpmap				"gh3/assault_rifle/assault_rifle_bump"
+	
+    $selfillum				1
+	
+	$halflambert			1
+	
+	$phong					1
+	$phongboost				0.1
+	$phongexponent 			64
+	$phongfresnelranges		"[ 0.2 0.2 1 ]"
+	
+	$rimlight				1
+	$rimlightboost			0
+	$rimlightexponent		4
+}

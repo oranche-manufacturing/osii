@@ -1,0 +1,12 @@
+VertexLitGeneric
+{
+	$basetexture			"gh3/hands/spartan/efp_arms_x"
+	$bumpmap				"gh3/hands/spartan/efp_arms_zbump"
+	
+	$halflambert			1
+	
+	$phong					1
+	$phongboost				1
+	$phongexponent 			8
+	$phongfresnelranges		"[ 1 1 1 ]"
+}

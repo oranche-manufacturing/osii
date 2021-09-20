@@ -1,0 +1,7 @@
+UnlitGeneric
+{
+	$basetexture			"gh3/assault_rifle/display"
+	$additive				1
+	$selfillum				1
+	$selfillummask			"gh3/assault_rifle/display"
+}

@@ -1,0 +1,7 @@
+UnlitGeneric
+{
+	$basetexture			"gh3/shotgun/shotgun"
+	$bumpmap				"gh3/shotgun/shotgun_bump"
+	
+    $selfillum				1
+}

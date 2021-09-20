@@ -1,0 +1,16 @@
+UnlitGeneric
+{
+	$basetexture			"gh3/battle_rifle/numbers_plate2"
+	$additive				1
+	$selfillum				1
+	$selfillummask			"gh3/battle_rifle/numbers_plate2"
+	
+	Proxies
+	{
+		GH3_AmmoCounter
+		{
+			resultVar 1
+			prefixstring "gh3/battle_rifle/numbers_plate"
+		}
+	}
+}

@@ -1,0 +1,25 @@
+VertexLitGeneric
+{
+	$basetexture			"gh3/hands/spartan/efp_mp_arms_x"
+	$bumpmap				"gh3/hands/spartan/efp_arms_zbump"
+	$model					1
+	
+	$halflambert			1
+	$blendtintbybasealpha	1
+	
+	$color2 "[ 1 1 1 ]"
+	
+	$phong					1
+	$phongboost				1
+	$phongexponent 			4
+	$phongfresnelranges		"[1 1 1]"
+		
+	Proxies
+	{
+		PlayerColor
+		{
+			resultVar	$color2
+			default		0.2 0.3 0.4
+		}
+	}
+}

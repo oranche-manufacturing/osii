@@ -1,0 +1,7 @@
+VertexLitGeneric
+{
+	$basetexture			"gh3/rocket launcher/rocket_launcher_decal"
+	
+    $translucent			1
+	$halflambert			1
+}
