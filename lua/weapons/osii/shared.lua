@@ -8,7 +8,7 @@
 ]]
 
 -- 1
-SWEP.Spawnable				= true
+SWEP.Spawnable				= false
 SWEP.Base					= "weapon_base"
 SWEP.PrintName				= "OSII Weapon Base"
 SWEP.Category				= "OSII"

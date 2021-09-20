@@ -38,8 +38,8 @@ SWEP.Stats	= {
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, -1, -0.5),
-			["ang"] = Angle(-2, 0, 0)
+			["pos"] = Vector(0, 0, 0),
+			["ang"] = Angle(-5, 0, 0)
 		},
 	},
 	["Magazines"]	= {
@@ -62,10 +62,6 @@ SWEP.Stats	= {
 			},
 			{
 				seq = "fire3",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire4",
 				tpanim = tpa[2]
 			},
 		},

@@ -20,8 +20,8 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 15,
-		["Damage"]						= Range( 3, 13 ),
-		["Range"]						= Range( 250, 1000 ), -- hammer units
+		["Damage"]						= Range( 3, 10 ),
+		["Range"]						= Range( 300, 600 ), -- hammer units
 		["Spread"]						= Range( 6, 6 ), -- degree(s)
 		["Force"]						= 1
 	},
@@ -62,10 +62,6 @@ SWEP.Stats	= {
 			},
 			{
 				seq = "fire3",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire4",
 				tpanim = tpa[2]
 			},
 		},
