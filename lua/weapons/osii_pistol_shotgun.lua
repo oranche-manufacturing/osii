@@ -4,9 +4,9 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Pump-Action Shotgun"
+SWEP.PrintName				= "Sawed-Off Shotgun"
 SWEP.Category				= "OSII"
-SWEP.Slot					= 2
+SWEP.Slot					= 1
 SWEP.SlotPos				= 0
 
 -- 2
@@ -19,7 +19,7 @@ SWEP.UseHands				= true
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
 SWEP.Stats	= {
 	["Bullet"]		= {
-		["Count"]						= 15,
+		["Count"]						= 8,
 		["Damage"]						= Range( 3, 10 ),
 		["Range"]						= Range( 300, 600 ), -- hammer units
 		["Spread"]						= Range( 5, 10 ), -- degrees, min to max
@@ -27,11 +27,11 @@ SWEP.Stats	= {
 		["Force"]						= 2
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.125, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 1, -- Delay between each burst
+		["Fire delay"]					= 0.2, -- Mechanical firerate, start to finish
+		["Fire recovery delay"]			= 0.25, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 1, 1 )
+		["Shots fired maximum"]			= Range( 1, 2 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
@@ -42,12 +42,12 @@ SWEP.Stats	= {
 			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-2, 0, 0)
 		},
-		["Recoil mult"] = 8,
-		["Recoil decay"] = 16,
+		["Recoil mult"] = 10,
+		["Recoil decay"] = 32,
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 1,
-		["Maximum loaded"]				= 6,
+		["Maximum loaded"]				= 2,
 		["Ammo type"]					= "buckshot",
 	},
 	["Animation"] = {
@@ -58,17 +58,14 @@ SWEP.Stats	= {
 			{
 				seq = "fire1",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire2",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire3",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 		},
 		["reload_enter"]	= {

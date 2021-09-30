@@ -4,9 +4,9 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Assault Rifle"
+SWEP.PrintName				= "Battle Rifle"
 SWEP.Category				= "OSII"
-SWEP.Slot					= 1
+SWEP.Slot					= 2
 SWEP.SlotPos				= 0
 
 -- 2
@@ -20,21 +20,22 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 11, 19 ),
-		["Range"]						= Range( 500, 2000 ), -- hammer units
-		["Spread"]						= Range( 2, 2 ), -- degree(s)
+		["Damage"]						= Range( 12, 24 ),
+		["Range"]						= Range( 500, 1500 ), -- hammer units
+		["Spread"]						= Range( 1, 3 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.12, 0.3 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= (60/15)/60, -- Mechanical firerate
-		["Fire recovery delay"]			= 0, -- Delay between each burst
+		["Fire delay"]					= 0.12, -- Mechanical firerate, start to finish
+		["Fire recovery delay"]			= 0.25, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 0, 0 )
+		["Shots fired maximum"]			= Range( 1, 1 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.AssaultRifle.Fire",
+			["Fire"]					= "OSII.Pistol_Magnum.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
@@ -43,9 +44,9 @@ SWEP.Stats	= {
 		},
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 30,
-		["Maximum loaded"]				= 30,
-		["Ammo type"]					= "smg1",
+		["Amount reloaded"]				= 18,
+		["Maximum loaded"]				= 18,
+		["Ammo type"]					= "ar2",
 	},
 	["Animation"] = {
 		["idle"]	= {
@@ -83,6 +84,6 @@ SWEP.Stats	= {
 			ang = Angle()
 		},
 		["FOV"] = 75,
-		["Time"] = 0.25,
+		["Time"] = 0.3,
 	}
 }

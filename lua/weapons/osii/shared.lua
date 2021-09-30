@@ -62,6 +62,8 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 4, "ReloadLoadDelay")
 	self:NetworkVar("Float", 5, "NextIdle")
 	self:NetworkVar("Float", 6, "ADSDelta")
+	self:NetworkVar("Float", 7, "AccelFirerate")
+	self:NetworkVar("Float", 8, "AccelInaccuracy")
 
 	self:NetworkVar("Bool", 0, "ReloadingState")
 end
@@ -70,23 +72,40 @@ function SWEP:Think()
 	local p = self:GetOwner()
 
 	if IsValid(p) then
-		local maa = self.Stats["Function"]["Shots fired maximum"]
-		if self:GetBurstCount() != 0 and maa.max != 0 and self:GetBurstCount() < maa.max then
-			if self:Clip1() <= 0 then
-				self:SetBurstCount(0)
-			else
-				self:PrimaryAttack(true)
+
+		do -- Accels
+			local doo = ( self:GetFireDelay() >= ( CurTime() - engine.TickInterval() ) )-- or ( self:GetFireRecoveryDelay() >= ( CurTime() - engine.TickInterval() ) )
+
+			local accelrange = self.Stats["Function"]["Fire acceleration time"]
+			if accelrange then
+				self:SetAccelFirerate( math.Approach(self:GetAccelFirerate(), ( doo and 1 or 0 ), FrameTime() / ( doo and accelrange.min or accelrange.max ) ) )
+			end
+
+			local inaccrange = self.Stats["Bullet"]["Spread acceleration time"]
+			if inaccrange then
+				self:SetAccelInaccuracy( math.Approach(self:GetAccelInaccuracy(), ( doo and 1 or 0 ), FrameTime() / ( doo and inaccrange.min or inaccrange.max ) ) )
+			end
+
+			-- print("fire", self:GetAccelFirerate()*100)
+			-- print("inac", self:GetAccelInaccuracy()*100)
+		end
+
+		do -- Burst features
+			local maa = self.Stats["Function"]["Shots fired maximum"]
+			if self:GetBurstCount() != 0 and maa.max != 0 and self:GetBurstCount() < maa.max then
+				if self:Clip1() <= 0 then
+					self:SetBurstCount(0)
+				else
+					self:PrimaryAttack(true)
+				end
+			end
+
+			if self:GetBurstCount() >= self.Stats["Function"]["Shots fired maximum"].min and !p:KeyDown(IN_ATTACK) then
+				self:SetBurstCount( 0 )
 			end
 		end
-
-		if self:GetBurstCount() >= self.Stats["Function"]["Shots fired maximum"].min and !p:KeyDown(IN_ATTACK) then
-			self:SetBurstCount( 0 )
-		end
-
-		if self:GetNextIdle() <= CurTime() then
-			self:SendAnim(self.qa["idle"])
-		end
 		
+		-- Events
 		for i, v in ipairs(self.EventTable) do
 			for ed, bz in pairs(v) do
 				if ed <= CurTime() then
@@ -97,23 +116,26 @@ function SWEP:Think()
 			end
 		end
 
-		if self:GetReloadLoadDelay() != 0 and self:GetReloadLoadDelay() <= CurTime() then
-			self:SetReloadLoadDelay(0)
-			self:Load()
-		end
-			
-		if self:GetReloadingState() and self:Clip1() > 0 and ( p:KeyDown(IN_ATTACK) or p:KeyDown(IN_ATTACK2) ) then
-			self:FinishReload()
-		end
-
-		if self:GetReloadingState() and self:GetReloadDelay() < CurTime() then
-			if self:Clip1() < self.Stats["Magazines"]["Maximum loaded"] and self:Ammo1() > 0 then
-				self:InsertReload()
-			else
+		do -- Reloading
+			if self:GetReloadLoadDelay() != 0 and self:GetReloadLoadDelay() <= CurTime() then
+				self:SetReloadLoadDelay(0)
+				self:Load()
+			end
+				
+			if self:GetReloadingState() and self:Clip1() > 0 and ( p:KeyDown(IN_ATTACK) or p:KeyDown(IN_ATTACK2) ) then
 				self:FinishReload()
 			end
+
+			if self:GetReloadingState() and self:GetReloadDelay() < CurTime() then
+				if self:Clip1() < self.Stats["Magazines"]["Maximum loaded"] and self:Ammo1() > 0 then
+					self:InsertReload()
+				else
+					self:FinishReload()
+				end
+			end
 		end
-		
+
+		-- Recoil
 		if CLIENT and p.randv then
 			local fft = FrameTime() * ( self.Stats["Appearance"]["Recoil decay"] or 8 )
 			p.randv.x = math.Approach(p.randv.x, 0, fft)
@@ -121,8 +143,14 @@ function SWEP:Think()
 			p.randv.z = math.Approach(p.randv.z, 0, fft)
 		end
 		
+		-- ADS
 		local canzoom = self:GetOwner():KeyDown(IN_ATTACK2) and !( self:GetReloadDelay() > CurTime() )
 		self:SetADSDelta( math.Approach( self:GetADSDelta(), ( canzoom and 1 or 0 ), FrameTime() / ( self.Stats["ADS"] and self.Stats["ADS"]["Time"] or 0.3 ) ) )
+
+		-- Idles
+		if self:GetNextIdle() <= CurTime() then
+			self:SendAnim(self.qa["idle"])
+		end
 	end
 end
 
@@ -197,7 +225,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 	local affset = Angle()
 	
 	if IsValid(p) then
-		pvel = math.Approach(pvel, p:GetVelocity():Length(), FrameTime() * ( p:GetWalkSpeed() * 2 ) )
+		pvel = math.Approach(pvel, p:OnGround() and p:GetVelocity():Length2D() or 0, FrameTime() * ( p:GetWalkSpeed() * 2 ) )
 	else
 		pvel = 0
 	end
@@ -221,9 +249,9 @@ function SWEP:GetViewModelPosition(pos, ang)
 	do -- Moving
 		local mult = Lerp( self:GetADSDelta(), 0.8, 0.4 ) * ( pvel / p:GetWalkSpeed() )
 		local spe = 1
-		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2 ) * 0.4 * mult )
-		offset.y = offset.y + ( math.sin( CurTime() * spe ) * 0 * mult )
-		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2 ) * -0.6 * mult )
+		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2 ) * 0.2 * mult )
+		offset.y = offset.y + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 4 ) * -0.2 * mult )
+		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2 ) * -0.5 * mult )
 
 		affset.x = affset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 4 * spe ), 2 ) * 1 * mult )
 		affset.y = affset.y + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2 ) * -1 * mult )
@@ -232,11 +260,14 @@ function SWEP:GetViewModelPosition(pos, ang)
 
 	do -- Sway
 		local mult = Lerp( self:GetADSDelta(), 0.2, 0.01 )
-		offset.z = offset.z + yaaa.x * 1 * mult
-		affset.x = affset.x + yaaa.x * -1 * mult
+		offset.z = offset.z + yaaa.x * 2 * mult
+		affset.x = affset.x + yaaa.x * -6 * mult
 
-		offset.x = offset.x + yaaa.y * 1 * mult
-		affset.y = affset.y + yaaa.y * 1 * mult
+		offset.x = offset.x + yaaa.y * -1 * mult
+		affset.y = affset.y + yaaa.y * 2 * mult
+		
+		affset.z = affset.z + yaaa.y * -4 * mult
+		offset.z = offset.z + yaaa.y * -0.5 * mult
 	end
 
 	do -- ADS
@@ -297,6 +328,10 @@ end
 
 
 -- Client
+AddCSLuaFile("cl_hud.lua")
+if CLIENT then
+	include("cl_hud.lua")
+end
 --[[AddCSLuaFile
 if CLIENT then
 	include

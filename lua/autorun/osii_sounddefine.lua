@@ -89,6 +89,16 @@ local addsound = {
 		},
 	},
 	{
+		name = "OSII.Pistol.Dry",
+		channel = chans.weapfire,
+		volume = 0.5,
+		level = 60,
+		pitch = pn,
+		sound = {
+			")weapons/ar2/ar2_empty.wav",
+		},
+	},
+	{
 		name = "OSII.Pistol.FireDist",
 		channel = chans.weapfiredist,
 		volume = 0.5,
@@ -113,6 +123,22 @@ local addsound = {
 			")osii/weap/pistol_magnum/fire4.wav",
 			")osii/weap/pistol_magnum/fire5.wav",
 		},
+	},
+	{
+		name = "OSII.Revolver.Fire",
+		channel = chans.weapfire,
+		volume = 0.5,
+		level = 140,
+		pitch = pn,
+		sound = ")weapons/357/357_fire2.wav",
+	},
+	{
+		name = "OSII.SMG.Fire",
+		channel = chans.weapfire,
+		volume = 0.5,
+		level = 140,
+		pitch = pn,
+		sound = ")weapons/smg1/smg1_fire1.wav",
 	},
 }
 

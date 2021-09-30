@@ -4,7 +4,7 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Pistol"
+SWEP.PrintName				= "Revolver"
 SWEP.Category				= "OSII"
 SWEP.Slot					= 1
 SWEP.SlotPos				= 0
@@ -12,7 +12,7 @@ SWEP.SlotPos				= 0
 -- 2
 SWEP.ViewModelFOV			= 60
 SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
-SWEP.WorldModel				= "models/weapons/w_pist_p228.mdl"
+SWEP.WorldModel				= "models/weapons/w_pist_deagle.mdl"
 SWEP.UseHands				= true
 
 -- 3
@@ -20,33 +20,35 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 3, 13 ),
+		["Damage"]						= Range( 17, 30 ),
 		["Range"]						= Range( 250, 1000 ), -- hammer units
-		["Spread"]						= Range( 1, 6 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.3, 0.3 ), -- How long it takes to accurate
-		["Force"]						= 1
+		["Spread"]						= Range( 0.75, 3 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.15, 0.5 ), -- How long it takes to accurate
+		["Force"]						= 3
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.12, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 0, -- Delay between each burst
+		["Fire delay"]					= 0.15, -- Mechanical firerate, start to finish
+		["Fire recovery delay"]			= 0.3, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
 		["Shots fired maximum"]			= Range( 1, 1 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol.Fire",
+			["Fire"]					= "OSII.Revolver.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, -0.5),
+			["pos"] = Vector(0, 0, 0),
 			["ang"] = Angle(-5, 0, 0)
 		},
+		["Recoil mult"] = 4,
+		["Recoil decay"] = 8,
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 15,
-		["Maximum loaded"]				= 15,
-		["Ammo type"]					= "pistol",
+		["Amount reloaded"]				= 6,
+		["Maximum loaded"]				= 6,
+		["Ammo type"]					= "357",
 	},
 	["Animation"] = {
 		["idle"]	= {
@@ -84,7 +86,7 @@ SWEP.Stats	= {
 	},
 	["ADS"] = {
 		["Viewmodel"] = {
-			pos = Vector(-4.05, -2, -0.6),
+			pos = Vector(-4.05, -2, 1.3),
 			ang = Angle()
 		},
 		["FOV"] = 75,

@@ -4,7 +4,7 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Pump-Action Shotgun"
+SWEP.PrintName				= "Double-Barreled Shotgun"
 SWEP.Category				= "OSII"
 SWEP.Slot					= 2
 SWEP.SlotPos				= 0
@@ -22,16 +22,16 @@ SWEP.Stats	= {
 		["Count"]						= 15,
 		["Damage"]						= Range( 3, 10 ),
 		["Range"]						= Range( 300, 600 ), -- hammer units
-		["Spread"]						= Range( 5, 10 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.125, 0.3 ), -- How long it takes to accurate
+		["Spread"]						= Range( 4, 10 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.125, 0.4 ), -- How long it takes to accurate
 		["Force"]						= 2
 	},
 	["Function"]	= {
 		["Fire delay"]					= 0.125, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 1, -- Delay between each burst
+		["Fire recovery delay"]			= 0.125, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 1, 1 )
+		["Shots fired maximum"]			= Range( 1, 2 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
@@ -42,12 +42,12 @@ SWEP.Stats	= {
 			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-2, 0, 0)
 		},
-		["Recoil mult"] = 8,
-		["Recoil decay"] = 16,
+		["Recoil mult"] = 16,
+		["Recoil decay"] = 48,
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 1,
-		["Maximum loaded"]				= 6,
+		["Amount reloaded"]				= 2,
+		["Maximum loaded"]				= 2,
 		["Ammo type"]					= "buckshot",
 	},
 	["Animation"] = {
@@ -58,17 +58,14 @@ SWEP.Stats	= {
 			{
 				seq = "fire1",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire2",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire3",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 		},
 		["reload_enter"]	= {

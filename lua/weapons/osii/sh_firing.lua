@@ -7,18 +7,14 @@ function SWEP:PrimaryAttack(forced)
 	if !forced and self:GetFireRecoveryDelay() > CurTime() then return false end
 	if self:GetReloadDelay() > CurTime() then return false end
 	
-	if self.Stats["Function"]["Ammo required per shot"] > self:Clip1() then return false end
-
-	if	self.Stats["Function"]["Shots fired maximum"].max != 0 and
-		self:GetBurstCount() >= self.Stats["Function"]["Shots fired maximum"].max then
+	if self.Stats["Function"]["Ammo required per shot"] > self:Clip1() then
+		self:EmitSound( self.Stats["Appearance"]["Sounds"]["Dry"] )
+		self:SetFireDelay( CurTime() + 0.2 )
 		return false
 	end
 
-	-- Make sure we can shoot first
-	if self:Clip1() <= 0 then
-		self:EmitSound( "Weapon_Pistol.Empty" )
-		self:SetNextPrimaryFire( CurTime() + 0.2 )
-		--self:Reload()
+	if self.Stats["Function"]["Shots fired maximum"].max != 0 and
+		self:GetBurstCount() >= self.Stats["Function"]["Shots fired maximum"].max then
 		return false
 	end
 
@@ -26,7 +22,12 @@ function SWEP:PrimaryAttack(forced)
 	self:EmitSound( self.Stats["Appearance"]["Sounds"]["Fire"] )
 	self:ShootBullet()
 
-	self:SetFireDelay( CurTime() + self.Stats["Function"]["Fire delay"] )
+	local time = self.Stats["Function"]["Fire delay"]
+	if istable(time) then
+		time = Lerp( self:GetAccelFirerate(), time.min, time.max )
+	end
+
+	self:SetFireDelay( CurTime() + time )
 	self:SetFireRecoveryDelay( CurTime() + self.Stats["Function"]["Fire recovery delay"] )
 	self:SetBurstCount( self:GetBurstCount() + 1 )
 
@@ -49,7 +50,12 @@ function SWEP:ShootBullet()
 
 		local rnd = util.SharedRandom(CurTime()/11, 0, 360, i)
 		local rnd2 = util.SharedRandom(CurTime()/22, 0, 1, i*2)
-		local deviat = Angle( math.cos(rnd), math.sin(rnd), 0) * ( rnd2 * self.Stats["Bullet"]["Spread"].max )
+
+		local spread = self.Stats["Bullet"]["Spread"]
+		if istable(spread) then
+			spread = Lerp( self:GetAccelInaccuracy(), spread.min, spread.max )
+		end
+		local deviat = Angle( math.cos(rnd), math.sin(rnd), 0 ) * ( rnd2 * spread )
 		
 		local bullet = {}
 		bullet.Num		= 1

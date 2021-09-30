@@ -4,15 +4,15 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Pistol"
+SWEP.PrintName				= "Assault Rifle"
 SWEP.Category				= "OSII"
-SWEP.Slot					= 1
+SWEP.Slot					= 2
 SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
-SWEP.WorldModel				= "models/weapons/w_pist_p228.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/assault_rifle.mdl"
+SWEP.WorldModel				= "models/weapons/w_rif_m4a1.mdl"
 SWEP.UseHands				= true
 
 -- 3
@@ -20,33 +20,33 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 3, 13 ),
-		["Range"]						= Range( 250, 1000 ), -- hammer units
-		["Spread"]						= Range( 1, 6 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.3, 0.3 ), -- How long it takes to accurate
+		["Damage"]						= Range( 11, 19 ),
+		["Range"]						= Range( 500, 2000 ), -- hammer units
+		["Spread"]						= Range( 1.5, 3.5 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 1, 0.5 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.12, -- Mechanical firerate, start to finish
+		["Fire delay"]					= 0.072, -- Mechanical firerate, start to finish
 		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 1, 1 )
+		["Shots fired maximum"]			= Range( 0, 0 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol.Fire",
+			["Fire"]					= "OSII.AssaultRifle.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, -0.5),
-			["ang"] = Angle(-5, 0, 0)
+			["pos"] = Vector(0, 0, -1),
+			["ang"] = Angle(0, 0, 0)
 		},
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 15,
-		["Maximum loaded"]				= 15,
-		["Ammo type"]					= "pistol",
+		["Amount reloaded"]				= 30,
+		["Maximum loaded"]				= 30,
+		["Ammo type"]					= "smg1",
 	},
 	["Animation"] = {
 		["idle"]	= {
@@ -65,10 +65,6 @@ SWEP.Stats	= {
 				seq = "fire3",
 				tpanim = tpa[2]
 			},
-			{
-				seq = "fire4",
-				tpanim = tpa[2]
-			},
 		},
 		["reload"]	= {
 			seq = "reload_empty",
@@ -84,10 +80,10 @@ SWEP.Stats	= {
 	},
 	["ADS"] = {
 		["Viewmodel"] = {
-			pos = Vector(-4.05, -2, -0.6),
+			pos = Vector(-2, -4, 0.3),
 			ang = Angle()
 		},
 		["FOV"] = 75,
-		["Time"] = 0.28,
+		["Time"] = 0.3,
 	}
 }

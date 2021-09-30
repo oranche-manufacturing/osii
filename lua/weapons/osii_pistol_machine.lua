@@ -4,7 +4,7 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Pistol"
+SWEP.PrintName				= "Machine Pistol"
 SWEP.Category				= "OSII"
 SWEP.Slot					= 1
 SWEP.SlotPos				= 0
@@ -21,17 +21,17 @@ SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
 		["Damage"]						= Range( 3, 13 ),
-		["Range"]						= Range( 250, 1000 ), -- hammer units
-		["Spread"]						= Range( 1, 6 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.3, 0.3 ), -- How long it takes to accurate
+		["Range"]						= Range( 250, 500 ), -- hammer units
+		["Spread"]						= Range( 1, 4 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.2, 0.35 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.12, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 0, -- Delay between each burst
+		["Fire delay"]					= 0.08, -- Mechanical firerate, start to finish
+		["Fire recovery delay"]			= 0.20, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 1, 1 )
+		["Shots fired maximum"]			= Range( 3, 3 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
@@ -44,8 +44,8 @@ SWEP.Stats	= {
 		},
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 15,
-		["Maximum loaded"]				= 15,
+		["Amount reloaded"]				= 18,
+		["Maximum loaded"]				= 18,
 		["Ammo type"]					= "pistol",
 	},
 	["Animation"] = {
