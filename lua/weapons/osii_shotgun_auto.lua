@@ -4,7 +4,7 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Pump-Action Shotgun"
+SWEP.PrintName				= "Auto-Battery Shotgun"
 SWEP.Category				= "OSII"
 SWEP.Slot					= 2
 SWEP.SlotPos				= 0
@@ -19,19 +19,20 @@ SWEP.UseHands				= true
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
 SWEP.Stats	= {
 	["Bullet"]		= {
-		["Count"]						= 15,
-		["Damage"]						= Range( 3, 10 ),
+		["Count"]						= 7,
+		["Damage"]						= Range( 3, 7 ),
 		["Range"]						= Range( 300, 600 ), -- hammer units
-		["Spread"]						= Range( 5, 10 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.125, 0.3 ), -- How long it takes to accurate
+		["Spread"]						= Range( 4, 10 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 2, 0.3 ), -- How long it takes to accurate
 		["Force"]						= 2
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.25, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 1, -- Delay between each burst
+		["Fire delay"]					= Range( 0.6, 0.15 ), -- Mechanical firerate, start to finish
+		["Fire acceleration time"]		= Range( 2.5, 2 ), -- Time to spin up/down barrels
+		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 1, 1 )
+		["Shots fired maximum"]			= Range( 0, 0 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
@@ -46,8 +47,8 @@ SWEP.Stats	= {
 		["Recoil decay"] = 16,
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 1,
-		["Maximum loaded"]				= 6,
+		["Amount reloaded"]				= 4,
+		["Maximum loaded"]				= 12,
 		["Ammo type"]					= "buckshot",
 	},
 	["Animation"] = {
@@ -58,17 +59,14 @@ SWEP.Stats	= {
 			{
 				seq = "fire1",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire2",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 			{
 				seq = "fire3",
 				tpanim = tpa[2],
-				events = { { t = 0.2, s = "OSII.Shotgun.Pump" } }
 			},
 		},
 		["reload_enter"]	= {

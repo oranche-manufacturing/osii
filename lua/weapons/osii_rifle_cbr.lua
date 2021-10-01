@@ -4,13 +4,13 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Rotary Machine Turret"
+SWEP.PrintName				= "Caseless Battery Rifle"
 SWEP.Category				= "OSII"
-SWEP.Slot					= 3
+SWEP.Slot					= 2
 SWEP.SlotPos				= 0
 SWEP.Trivia					= {
-	["Description"]	= [[Large heavy rotary machine turret.
-	High inaccuracy under sustained fire. Use in bursts.]]
+	["Description"]	= [[An internal engine powers the mechanism inside.
+	]]
 }
 
 -- 2
@@ -24,15 +24,15 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 9, 16 ),
-		["Range"]						= Range( 500, 4000 ), -- hammer units
-		["Spread"]						= Range( 1.5, 6 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 2.5, 0.3 ), -- How long it takes to accurate
+		["Damage"]						= Range( 7, 15 ),
+		["Range"]						= Range( 500, 2000 ), -- hammer units
+		["Spread"]						= Range( 2, 5 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 3, 5 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= Range( 0.15, 0.08 ), -- Mechanical firerate, start to finish, start to finish
-		["Fire acceleration time"]		= Range( 2.5, 1 ), -- Time to spin up/down barrels
+		["Fire delay"]					= Range( 0.15, 0.04 ), -- Mechanical firerate, start to finish
+		["Fire acceleration time"]		= Range( 3, 5 ), -- Time to spin up/down barrels
 		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
@@ -40,17 +40,17 @@ SWEP.Stats	= {
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol_Magnum.Fire",
+			["Fire"]					= "OSII.AssaultRifle.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(-0.5, -3, -1),
+			["pos"] = Vector(0, 0, -1),
 			["ang"] = Angle(0, 0, 0)
 		},
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 200,
-		["Maximum loaded"]				= 200,
+		["Amount reloaded"]				= 55,
+		["Maximum loaded"]				= 55,
 		["Ammo type"]					= "smg1",
 	},
 	["Animation"] = {
@@ -85,10 +85,10 @@ SWEP.Stats	= {
 	},
 	["ADS"] = {
 		["Viewmodel"] = {
-			pos = Vector(-1, -4, 0.3),
+			pos = Vector(-2, -4, 0.3),
 			ang = Angle()
 		},
-		["FOV"] = 60,
-		["Time"] = 0.5,
+		["FOV"] = 75,
+		["Time"] = 0.3,
 	}
 }

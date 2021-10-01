@@ -57,7 +57,7 @@ function SWEP:DoDrawCrosshair()
 
 	len = 44
 	wid = 3
-	local dist = 55
+	local dist = ss*6
 	prog = (cl/self.Stats["Magazines"]["Maximum loaded"])
 	wid = 4
 
