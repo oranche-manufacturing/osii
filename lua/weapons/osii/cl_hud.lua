@@ -3,7 +3,8 @@ function SWEP:DrawHUD()
 end
 
 local col_a = Color(127, 255, 255, 255)
-local col_s = Color(0, 0, 0, 255)
+local col_s = Color(0, 0, 0, 127)
+local s_dist = 2
 
 function SWEP:DoDrawCrosshair()
 	local w = self
@@ -33,7 +34,7 @@ function SWEP:DoDrawCrosshair()
 			surface.SetDrawColor(col_a)
 			x, y = x2, y2
 		else
-			x, y = x+1, y+1
+			x, y = x+s_dist, y+s_dist
 		end
 		-- right
 		surface.DrawRect(x + gap, y - (wid/2), len, wid)
@@ -61,9 +62,17 @@ function SWEP:DoDrawCrosshair()
 	prog = (cl/self.Stats["Magazines"]["Maximum loaded"])
 	wid = 4
 
-	
-	surface.SetDrawColor(col_s)
-	surface.DrawRect(x - (wid/2) + 16 + dist + 1, y - (len/2) + (len - (len*1)) + 1, wid, len * 1)
+	if prog == 0 then
+		local soos = math.sin( CurTime() * math.pi / 0.5 )
+		if soos > 0 then
+			surface.SetDrawColor(127, 0, 0, 127)
+		else
+			surface.SetDrawColor(col_s)
+		end
+	else
+		surface.SetDrawColor(col_s)
+	end
+	surface.DrawRect(x - (wid/2) + 16 + dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
 
 	if prog >= (2/3) then
 		surface.SetDrawColor(127, 255, 127, 255)
@@ -76,8 +85,17 @@ function SWEP:DoDrawCrosshair()
 
 	prog = self:GetAccelFirerate()
 	if prog > 0 then
-		surface.SetDrawColor(col_s)
-		surface.DrawRect(x - (wid/2) - 16 - dist + 1, y - (len/2) + (len - (len*1)) + 1, wid, len * 1)
+		if prog == 1 then
+			local soos = math.sin( CurTime() * math.pi / 0.5 )
+			if soos > 0 then
+				surface.SetDrawColor(127, 0, 0, 127)
+			else
+				surface.SetDrawColor(col_s)
+			end
+		else
+			surface.SetDrawColor(col_s)
+		end
+		surface.DrawRect(x - (wid/2) - 16 - dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
 
 		surface.SetDrawColor(Color(255, 55, 55))
 		surface.DrawRect(x - (wid/2) - 16 - dist, y - (len/2) + (len - (len*prog)), wid, len * prog)

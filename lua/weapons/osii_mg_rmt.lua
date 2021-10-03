@@ -27,7 +27,7 @@ SWEP.Stats	= {
 		["Damage"]						= Range( 9, 16 ),
 		["Range"]						= Range( 500, 4000 ), -- hammer units
 		["Spread"]						= Range( 1.5, 6 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 2.5, 0.3 ), -- How long it takes to accurate
+		["Spread acceleration time"]	= Range( 2.5, 0.5 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {

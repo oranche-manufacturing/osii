@@ -4,9 +4,9 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Squad Automatic Weapon"
+SWEP.PrintName				= "Carbine"
 SWEP.Category				= "OSII"
-SWEP.Slot					= 3
+SWEP.Slot					= 2
 SWEP.SlotPos				= 0
 
 -- 2
@@ -20,18 +20,18 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 11, 18 ),
+		["Damage"]						= Range( 11, 19 ),
 		["Range"]						= Range( 500, 2000 ), -- hammer units
-		["Spread"]						= Range( 1, 4 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 1, 0.3 ), -- How long it takes to accurate
+		["Spread"]						= Range( 0.75, 9 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.9, 1.1 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.076, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 0, -- Delay between each burst
+		["Fire delay"]					= 0.059, -- Mechanical firerate, start to finish
+		["Fire recovery delay"]			= 0.17, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 0, 0 )
+		["Shots fired maximum"]			= Range( 3, 3 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
@@ -44,8 +44,8 @@ SWEP.Stats	= {
 		},
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 80,
-		["Maximum loaded"]				= 80,
+		["Amount reloaded"]				= 30,
+		["Maximum loaded"]				= 30,
 		["Ammo type"]					= "smg1",
 	},
 	["Animation"] = {

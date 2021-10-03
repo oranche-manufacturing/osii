@@ -140,6 +140,14 @@ local addsound = {
 		pitch = pn,
 		sound = ")weapons/smg1/smg1_fire1.wav",
 	},
+	{
+		name = "OSII.MG_Light.Fire",
+		channel = chans.weapfire,
+		volume = 0.5,
+		level = 140,
+		pitch = pn,
+		sound = "^weapons/ar1/ar1_dist2.wav",
+	},
 }
 
 for i, v in ipairs(addsound) do

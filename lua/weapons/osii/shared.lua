@@ -267,9 +267,9 @@ function SWEP:GetViewModelPosition(pos, ang)
 		offset.x = offset.x + yaaa.y * -1 * mult
 		affset.y = affset.y + yaaa.y * 2 * mult
 		
-		affset.z = affset.z + yaaa.y * -2 * mult
-		offset.x = offset.x + yaaa.y * 2 * mult
-		offset.z = offset.z + yaaa.y * -0.22 * mult
+		affset.z = affset.z + math.abs(yaaa.y) * -2 * mult
+		offset.x = offset.x + yaaa.y * 1.5 * mult
+		offset.z = offset.z + math.abs(yaaa.y) * -0.22 * mult
 
 	end
 

@@ -22,13 +22,13 @@ SWEP.Stats	= {
 		["Count"]						= 1,
 		["Damage"]						= Range( 12, 24 ),
 		["Range"]						= Range( 500, 1500 ), -- hammer units
-		["Spread"]						= Range( 1, 3 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.12, 0.3 ), -- How long it takes to accurate
+		["Spread"]						= Range( 1, 8 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.6, 0.25 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.12, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 0.25, -- Delay between each burst
+		["Fire delay"]					= 0.25, -- Mechanical firerate, start to finish
+		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
 		["Shots fired maximum"]			= Range( 1, 1 )
