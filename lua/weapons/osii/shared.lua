@@ -217,8 +217,8 @@ function SWEP:PreDrawViewModel(vm, wep, p)
 	end
 end
 
-local midpointpos = Vector(-1, -3, -3)
-local midpointang = Angle(0, 0, -2)
+local midpointpos = Vector(0, 5, -5)
+local midpointang = Angle(5, 5, -25)
 function SWEP:GetViewModelPosition(pos, ang)
 	local p = LocalPlayer()
 	local offset = Vector()
@@ -260,8 +260,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 
 	do -- Sway
 		local mult = Lerp( self:GetADSDelta(), 0.4, 0.01 )
-		offset.z = offset.z + yaaa.x * 2 * mult
-		affset.x = affset.x + yaaa.x * -6 * mult
+		offset.z = offset.z + math.abs(yaaa.x) * -0.25 * mult
+		affset.x = affset.x + yaaa.x * -1.5 * mult
 		affset.z = affset.z + math.abs(yaaa.x) * -4 * mult
 
 		offset.x = offset.x + yaaa.y * -1 * mult
@@ -275,17 +275,16 @@ function SWEP:GetViewModelPosition(pos, ang)
 
 	do -- ADS
 		local mult = math.pow( math.sin( self:GetADSDelta() * math.pi * 0.5 ), 2 )
+		local midpoint = mult * math.cos(mult * (math.pi / 2))
 		if self.Stats["ADS"]["Viewmodel"].pos then
-			local midpoint = mult * math.cos(mult * (math.pi / 2))
 			local contset = ( self.Stats["ADS"]["Viewmodel"].pos * mult )
-
 			contset = contset + ( midpointpos * midpoint )
 
 			offset = LerpVector( mult, offset, contset )
 		end
 
 		if self.Stats["ADS"]["Viewmodel"].ang then
-			affset = LerpAngle( mult, affset, self.Stats["ADS"]["Viewmodel"].ang )
+			affset = LerpAngle( mult, affset, self.Stats["ADS"]["Viewmodel"].ang + ( midpointang * midpoint ) )
 		end
 
 		self.ViewModelFOV = Lerp(mult, self.ViewModelFOV_Init, self.ViewModelFOV_Init*1.1)
