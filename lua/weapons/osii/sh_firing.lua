@@ -8,8 +8,8 @@ function SWEP:PrimaryAttack(forced)
 	if self:GetReloadDelay() > CurTime() then return false end
 	
 	if self.Stats["Function"]["Ammo required per shot"] > self:Clip1() then
-		self:EmitSound( self.Stats["Appearance"]["Sounds"]["Dry"] )
-		self:SetFireDelay( CurTime() + 0.2 )
+		--self:EmitSound( self.Stats["Appearance"]["Sounds"]["Dry"] )
+		--self:SetFireDelay( CurTime() + 0.2 )
 		return false
 	end
 
