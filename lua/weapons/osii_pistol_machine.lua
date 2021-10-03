@@ -20,18 +20,18 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 3, 13 ),
+		["Damage"]						= Range( 18, 18 ),
 		["Range"]						= Range( 250, 500 ), -- hammer units
-		["Spread"]						= Range( 1, 6 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.3, 0.35 ), -- How long it takes to accurate
+		["Spread"]						= Range( 1, 9 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.3, 0.5 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.08, -- Mechanical firerate, start to finish
-		["Fire recovery delay"]			= 0.20, -- Delay between each burst
+		["Fire delay"]					= ( 60 / 1200 ), -- Mechanical firerate, start to finish
+		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 3, 3 )
+		["Shots fired maximum"]			= Range( 0, 0 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
@@ -44,8 +44,8 @@ SWEP.Stats	= {
 		},
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 18,
-		["Maximum loaded"]				= 18,
+		["Amount reloaded"]				= 22,
+		["Maximum loaded"]				= 22,
 		["Ammo type"]					= "pistol",
 	},
 	["Animation"] = {

@@ -20,10 +20,10 @@ local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PI
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 17, 30 ),
+		["Damage"]						= Range( 55, 55 ),
 		["Range"]						= Range( 250, 1000 ), -- hammer units
 		["Spread"]						= Range( 0.75, 6 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.1, 0.25 ), -- How long it takes to accurate
+		["Spread acceleration time"]	= Range( 0.1, 0.6 ), -- How long it takes to accurate
 		["Force"]						= 3
 	},
 	["Function"]	= {

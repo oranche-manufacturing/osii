@@ -4,7 +4,7 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Squad Automatic Weapon"
+SWEP.PrintName				= "LMG"
 SWEP.Category				= "OSII"
 SWEP.Slot					= 3
 SWEP.SlotPos				= 0

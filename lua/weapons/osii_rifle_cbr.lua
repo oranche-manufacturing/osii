@@ -34,8 +34,8 @@ SWEP.Stats	= {
 		["Fire delay"]					= Range( 0.15, 0.04 ), -- Mechanical firerate, start to finish
 		["Fire acceleration time"]		= Range( 3, 5 ), -- Time to spin up/down barrels
 		["Fire recovery delay"]			= 0, -- Delay between each burst
-		["Ammo used per shot"]			= 1,
-		["Ammo required per shot"]		= 1,
+		["Ammo used per shot"]			= 0,
+		["Ammo required per shot"]		= 0,
 		["Shots fired maximum"]			= Range( 0, 0 )
 	},
 	["Appearance"]	= {
