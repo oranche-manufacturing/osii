@@ -11,7 +11,7 @@ SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/automag lite.mdl"
 SWEP.WorldModel				= "models/weapons/w_pist_p228.mdl"
 SWEP.UseHands				= true
 
@@ -39,7 +39,7 @@ SWEP.Stats	= { --its a gun.
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, -0.5),
+			["pos"] = Vector(0, 2, 0.5),
 			["ang"] = Angle(-5, 0, 0)
 		},
 	},
@@ -65,10 +65,6 @@ SWEP.Stats	= { --its a gun.
 				seq = "fire3",
 				tpanim = tpa[2]
 			},
-			{
-				seq = "fire4",
-				tpanim = tpa[2]
-			},
 		},
 		["reload"]	= {
 			seq = "reload_empty",
@@ -84,7 +80,7 @@ SWEP.Stats	= { --its a gun.
 	},
 	["ADS"] = {
 		["Viewmodel"] = {
-			pos = Vector(-4.05, -2, -0.6),
+			pos = Vector(-4.05, -2, 1.2),
 			ang = Angle()
 		},
 		["FOV"] = 75,

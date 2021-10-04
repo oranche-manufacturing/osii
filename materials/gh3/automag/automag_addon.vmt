@@ -1,0 +1,23 @@
+VertexLitGeneric
+{
+	$basetexture			"gh3/automag/automag_addon"
+	$bumpmap				"gh3/automag/automag_addon_bump"
+	
+    $selfillum				1
+	$selfillummask			"gh3/automag/automag_addon_illum"
+	
+	$envmap					env_cubemap
+	$normalmapalphaenvmapmask	1
+	$envmaptint				"[ 0.01 0.01 0.01 ]"
+	
+	$halflambert			1
+	
+	$phong					1
+	$phongboost				1
+	$phongexponent 			32
+	$phongfresnelranges		"[ 0.2 0.1 1 ]"
+	
+	$rimlight				1
+	$rimlightboost			0.05
+	$rimlightexponent		160
+}

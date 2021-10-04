@@ -54,15 +54,15 @@ SWEP.Stats	= { --Energy weapons do low damage but have infinite ammo and get mor
 		["Ammo type"]					= "none",
 	},
 	["Battery"] = {
-		["Age per shot"] = 1/300, -- X shots until inoperable
+		["Age per shot"] = 1/3000, -- X shots until inoperable
 		["Age heat recovery penalty"] = 0.2, -- Heat will take x longer to recover
 		["Age rate of fire penalty"] = 0.2, -- Gun will take x longer to shoot
 		["Misfire threshold"] = 0.10, -- at X battery left, the gun begins to misfire
 		["Misfire chance"] = 0.05, -- at 0% battery, the chance the gun will misfire
 	},
 	["Heat"] = {
-		["Heat acceleration time"] = Range( 3, 0.34 ), -- Time to overheat or cooldown
-		["Deceleration while overheated"] = 2, -- Deceleration time under overheat
+		["Heat acceleration time"] = Range( 2.5, 0.34 ), -- Time to overheat or cooldown
+		["Deceleration while overheated"] = 2.5, -- Deceleration time under overheat
 		["Recovery threshold"] = 0.1, -- Gun is usable past this threshold
 		["Overheated threshold"] = 1, -- Gun overheats past this threshold
 	},

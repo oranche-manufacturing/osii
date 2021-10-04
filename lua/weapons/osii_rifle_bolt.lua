@@ -22,7 +22,7 @@ SWEP.Stats	= { --Single most powerful weapon in the pack other than the Railgun.
 		["Count"]						= 1,
 		["Damage"]						= Range( 90, 90 ),
 		["Range"]						= Range( 500, 1000 ), -- hammer units
-		["Spread"]						= Range( 0, 5 ), -- degrees, min to max
+		["Spread"]						= Range( 0.25, 5 ), -- degrees, min to max
 		["Spread acceleration time"]	= Range( 0.1, 1 ), -- How long it takes to accurate
 		["Force"]						= 2
 	},
@@ -100,7 +100,7 @@ SWEP.Stats	= { --Single most powerful weapon in the pack other than the Railgun.
 			pos = Vector(-2, -1, 0),
 			ang = Angle()
 		},
-		["FOV"] = 75,
-		["Time"] = 0.35,
+		["FOV"] = 50,
+		["Time"] = 0.75,
 	}
 }

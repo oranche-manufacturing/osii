@@ -11,7 +11,7 @@ SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/automag.mdl"
 SWEP.WorldModel				= "models/weapons/w_pist_deagle.mdl"
 SWEP.UseHands				= true
 
@@ -39,7 +39,7 @@ SWEP.Stats	= { --Supposed to be a middle-ground between the capacity and recoil 
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, 0),
+			["pos"] = Vector(0, 2, 0.5),
 			["ang"] = Angle(-5, 0, 0)
 		},
 		["Recoil mult"] = 4,
@@ -57,19 +57,18 @@ SWEP.Stats	= { --Supposed to be a middle-ground between the capacity and recoil 
 		["fire"]	= {
 			{
 				seq = "fire1",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				rate = 0.5,
 			},
 			{
 				seq = "fire2",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				rate = 0.5,
 			},
 			{
 				seq = "fire3",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire4",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				rate = 0.5,
 			},
 		},
 		["reload"]	= {
