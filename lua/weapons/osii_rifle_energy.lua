@@ -21,7 +21,7 @@ SWEP.UseHands				= true
 
 -- 3
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
-SWEP.Stats	= {
+SWEP.Stats	= { --Energy weapons do low damage but have infinite ammo and get more accurate as youre shooting, but can overheat.
 	["Bullet"]		= {
 		["Count"]						= 1,
 		["Damage"]						= Range( 7, 15 ),

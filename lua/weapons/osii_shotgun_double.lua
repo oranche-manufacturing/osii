@@ -17,7 +17,7 @@ SWEP.UseHands				= true
 
 -- 3
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
-SWEP.Stats	= {
+SWEP.Stats	= { --Supposed to be for the shotgun users who want more accuracy or bang for buck, with the obvious downside of low capacity
 	["Bullet"]		= {
 		["Count"]						= 15,
 		["Damage"]						= Range( 3, 10 ),

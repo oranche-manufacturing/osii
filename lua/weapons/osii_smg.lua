@@ -4,7 +4,7 @@
 -- 1
 SWEP.Spawnable				= true
 SWEP.Base					= "osii"
-SWEP.PrintName				= "Magnum Pistol"
+SWEP.PrintName				= "Sub-Machine Gun"
 SWEP.Category				= "OSII"
 SWEP.Slot					= 1
 SWEP.SlotPos				= 0
@@ -12,43 +12,41 @@ SWEP.SlotPos				= 0
 -- 2
 SWEP.ViewModelFOV			= 60
 SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
-SWEP.WorldModel				= "models/weapons/w_pist_deagle.mdl"
+SWEP.WorldModel				= "models/weapons/w_pist_p228.mdl"
 SWEP.UseHands				= true
 
 -- 3
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
-SWEP.Stats	= { --Supposed to be a middle-ground between the capacity and recoil of the Pistol and the punch and kick of the Revolver.
+SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 	["Bullet"]		= {
 		["Count"]						= 1,
-		["Damage"]						= Range( 35, 35 ),
-		["Range"]						= Range( 250, 1000 ), -- hammer units
-		["Spread"]						= Range( 0.8, 7 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.3, 0.3 ), -- How long it takes to accurate
-		["Force"]						= 3
+		["Damage"]						= Range( 20, 20 ),
+		["Range"]						= Range( 300, 600 ), -- hammer units
+		["Spread"]						= Range( 0.5, 5 ), -- degrees, min to max
+		["Spread acceleration time"]	= Range( 0.6, 0.4 ), -- How long it takes to accurate
+		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.3, -- Mechanical firerate, start to finish
+		["Fire delay"]					= ( 60 / 800 ), -- Mechanical firerate, start to finish
 		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
-		["Shots fired maximum"]			= Range( 1, 1 )
+		["Shots fired maximum"]			= Range( 0, 0 )
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol_Magnum.Fire",
+			["Fire"]					= "OSII.Pistol.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, 0),
+			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-5, 0, 0)
 		},
-		["Recoil mult"] = 4,
-		["Recoil decay"] = 16,
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 8,
-		["Maximum loaded"]				= 8,
-		["Ammo type"]					= "357",
+		["Amount reloaded"]				= 30,
+		["Maximum loaded"]				= 30,
+		["Ammo type"]					= "pistol",
 	},
 	["Animation"] = {
 		["idle"]	= {
@@ -86,7 +84,7 @@ SWEP.Stats	= { --Supposed to be a middle-ground between the capacity and recoil 
 	},
 	["ADS"] = {
 		["Viewmodel"] = {
-			pos = Vector(-4.05, -2, 1.3),
+			pos = Vector(-4.05, -2, -0.6),
 			ang = Angle()
 		},
 		["FOV"] = 75,

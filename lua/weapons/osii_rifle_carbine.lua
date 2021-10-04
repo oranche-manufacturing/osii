@@ -17,7 +17,7 @@ SWEP.UseHands				= true
 
 -- 3
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
-SWEP.Stats	= {
+SWEP.Stats	= { --Actually a burst weapon. Id rather name it "Burst Rifle", but apparently that conflicts with something.. or something.
 	["Bullet"]		= {
 		["Count"]						= 1,
 		["Damage"]						= Range( 11, 19 ),

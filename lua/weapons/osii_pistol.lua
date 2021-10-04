@@ -17,7 +17,7 @@ SWEP.UseHands				= true
 
 -- 3
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
-SWEP.Stats	= {
+SWEP.Stats	= { --its a gun.
 	["Bullet"]		= {
 		["Count"]						= 1,
 		["Damage"]						= Range( 22, 22 ),
