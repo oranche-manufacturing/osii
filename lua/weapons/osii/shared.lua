@@ -250,8 +250,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 	end
 
 	do -- Offset
-		offset = offset + self.Stats["Appearance"]["Viewmodel"].pos
-		affset = affset + self.Stats["Appearance"]["Viewmodel"].ang
+		offset:Add(self.Stats["Appearance"]["Viewmodel"].pos)
+		affset:Add(self.Stats["Appearance"]["Viewmodel"].ang)
 	end
 
 	do -- Idle

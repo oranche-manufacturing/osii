@@ -11,7 +11,7 @@ SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3_temp/fp/magnum.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/smg.mdl"
 SWEP.WorldModel				= "models/weapons/w_pist_p228.mdl"
 SWEP.UseHands				= true
 
@@ -39,8 +39,8 @@ SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, -0.5),
-			["ang"] = Angle(-5, 0, 0)
+			["pos"] = Vector(0, 0, -0.8),
+			["ang"] = Angle(-2, 0, 0)
 		},
 	},
 	["Magazines"]	= {
@@ -53,22 +53,8 @@ SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 			seq = "idle",
 		},
 		["fire"]	= {
-			{
-				seq = "fire1",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire2",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire3",
-				tpanim = tpa[2]
-			},
-			{
-				seq = "fire4",
-				tpanim = tpa[2]
-			},
+			seq = "fire1",
+			tpanim = tpa[2]
 		},
 		["reload"]	= {
 			seq = "reload_empty",
@@ -84,8 +70,8 @@ SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 	},
 	["ADS"] = {
 		["Viewmodel"] = {
-			pos = Vector(-4.05, -2, -0.6),
-			ang = Angle()
+			pos = Vector(-3.65, -8, -0.2),
+			ang = Angle(0, -1.2, 0)
 		},
 		["FOV"] = 75,
 		["Time"] = 0.28,

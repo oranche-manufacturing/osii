@@ -27,7 +27,7 @@ SWEP.Stats	= {
 		["Force"]						= 1
 	},
 	["Function"]	= {
-		["Fire delay"]					= 0.076, -- Mechanical firerate, start to finish
+		["Fire delay"]					= 0.078, -- Mechanical firerate, start to finish
 		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 1,
 		["Ammo required per shot"]		= 1,
