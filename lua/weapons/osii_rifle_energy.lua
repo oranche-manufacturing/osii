@@ -15,8 +15,8 @@ SWEP.Trivia					= {
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3_temp/fp/assault_rifle.mdl"
-SWEP.WorldModel				= "models/weapons/w_rif_m4a1.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/plasma_rifle.mdl"
+SWEP.WorldModel				= "models/weapons/w_rif_galil.mdl"
 SWEP.UseHands				= true
 
 -- 3
@@ -32,7 +32,7 @@ SWEP.Stats	= {
 	},
 	["Function"]	= {
 		["Fire delay"]					= Range( 0.15, 0.07 ), -- Mechanical firerate, start to finish
-		["Fire acceleration time"]		= Range( 5, 2 ), -- Time to spin up/down barrels
+		["Fire acceleration time"]		= Range( 4, 2 ), -- Time to spin up/down barrels
 		["Fire recovery delay"]			= 0, -- Delay between each burst
 		["Ammo used per shot"]			= 0,
 		["Ammo required per shot"]		= 0,
@@ -61,8 +61,8 @@ SWEP.Stats	= {
 		["Misfire chance"] = 0.05, -- at 0% battery, the chance the gun will misfire
 	},
 	["Heat"] = {
-		["Heat acceleration time"] = Range( 9, 0.75 ), -- Time to overheat or cooldown
-		["Deceleration while overheated"] = 5.5, -- Deceleration time under overheat
+		["Heat acceleration time"] = Range( 3, 0.34 ), -- Time to overheat or cooldown
+		["Deceleration while overheated"] = 2, -- Deceleration time under overheat
 		["Recovery threshold"] = 0.1, -- Gun is usable past this threshold
 		["Overheated threshold"] = 1, -- Gun overheats past this threshold
 	},
@@ -85,13 +85,13 @@ SWEP.Stats	= {
 			},
 		},
 		["oh_enter"]	= {
-			seq = "put_away",
+			seq = "oh_heating",
 		},
 		["idle_oh"]	= {
-			seq = "posing1",
+			seq = "oh_heated",
 		},
 		["oh_exit"]	= {
-			seq = "ready",
+			seq = "oh_exit",
 		},
 		["draw"]	= {
 			seq = "ready",

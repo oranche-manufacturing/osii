@@ -133,7 +133,12 @@ function SWEP:DoDrawCrosshair()
 
 	len = 44*1
 	wid = 4
-	local dist
+	local dist = ss*6
+
+	surface.SetTextColor(255, 255, 255, 255)
+	surface.SetTextPos(x + (wid/2) - (ss*6), y + len/2 + ss*8)
+	surface.SetFont("DermaDefault")
+	surface.DrawText("Heat, firerate | Capacity, battery")
 	
 	do	-- Mag
 		dist = ss*6

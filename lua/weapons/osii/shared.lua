@@ -92,14 +92,14 @@ function SWEP:Think()
 			if self.Stats["Heat"] then
 				local heatrange = self.Stats["Heat"]["Heat acceleration time"]
 				if heatrange then
-					self:SetAccelHeat( math.Approach(self:GetAccelHeat(), ( doo and 1 or 0 ), FrameTime() / ( doo and heatrange.min or heatrange.max ) ) )
+					self:SetAccelHeat( math.Approach(self:GetAccelHeat(), ( doo and 1 or 0 ), FrameTime() / ( doo and heatrange.min or ( self:GetOverheated() and self.Stats["Heat"]["Deceleration while overheated"] or heatrange.max ) ) ) )
 				end
 				if !self:GetOverheated() and self:GetAccelHeat() >= self.Stats["Heat"]["Overheated threshold"] then
-					--if self:SelAnims().oh_enter then self:SendAnim(self:SelAnims().oh_enter, 1) end
+					self:SendAnim(self.qa["oh_enter"])
 					self:SetOverheated(true)
 				end
 				if self:GetOverheated() and self:GetAccelHeat() <= self.Stats["Heat"]["Recovery threshold"] then
-					--if self:SelAnims().oh_exit then self:SendAnim(self:SelAnims().oh_exit, 1) end
+					self:SendAnim(self.qa["oh_exit"])
 					self:SetOverheated(false)
 				end
 			end
@@ -164,7 +164,11 @@ function SWEP:Think()
 
 		-- Idles
 		if self:GetNextIdle() <= CurTime() then
-			self:SendAnim(self.qa["idle"])
+			if self:GetOverheated() then
+				self:SendAnim(self.qa["idle_oh"])
+			else
+				self:SendAnim(self.qa["idle"])
+			end
 		end
 	end
 end

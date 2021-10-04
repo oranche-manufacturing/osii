@@ -1,0 +1,27 @@
+VertexLitGeneric
+{
+	$basetexture			"gh3/smg/smg"
+	$bumpmap				"gh3/smg/smg_bump"
+	
+    $selfillum				1
+	
+	$envmap					env_cubemap
+	$normalmapalphaenvmapmask	1
+	$envmaptint				"[ 0.15 0.15 0.15 ]"
+	
+	$halflambert			1
+	
+	$phong					1
+	$phongboost				0.1
+	$phongexponent 			64
+	$phongfresnelranges		"[ 0.1 0.1 0.1 ]"
+	
+	$rimlight				1
+	$rimlightboost			0.1
+	$rimlightexponent		32
+	
+	$detail					"gh3/battle_rifle/gun_detail"
+	$detailscale			16
+	$detailblendmode		0
+	$detailblendfactor		4
+}

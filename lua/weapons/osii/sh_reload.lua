@@ -5,7 +5,7 @@ function SWEP:Reload()
 	if self:GetFireDelay() > CurTime() then return end
 	if self:GetFireRecoveryDelay() > CurTime() then return end
 	if self:GetReloadDelay() > CurTime() then return end
-	if SERVER and self:GetBattery() == 1 then self:GetOwner():DropWeapon(self) return end
+	if SERVER and self.Stats["Magazines"]["Amount reloaded"] <= 0 then self:GetOwner():DropWeapon(self) return end
 	if math.min( self:Ammo1(), self.Stats["Magazines"]["Maximum loaded"] - self:Clip1() ) <= 0 then return end
 
 	return self:StartReload()
