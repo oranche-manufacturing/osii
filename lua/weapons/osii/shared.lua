@@ -64,8 +64,11 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 6, "ADSDelta")
 	self:NetworkVar("Float", 7, "AccelFirerate")
 	self:NetworkVar("Float", 8, "AccelInaccuracy")
+	self:NetworkVar("Float", 9, "AccelHeat")
+	self:NetworkVar("Float", 10, "Battery")
 
 	self:NetworkVar("Bool", 0, "ReloadingState")
+	self:NetworkVar("Bool", 1, "Overheated")
 end
 
 function SWEP:Think()
@@ -86,8 +89,20 @@ function SWEP:Think()
 				self:SetAccelInaccuracy( math.Approach(self:GetAccelInaccuracy(), ( doo and 1 or 0 ), FrameTime() / ( doo and inaccrange.min or inaccrange.max ) ) )
 			end
 
-			-- print("fire", self:GetAccelFirerate()*100)
-			-- print("inac", self:GetAccelInaccuracy()*100)
+			if self.Stats["Heat"] then
+				local heatrange = self.Stats["Heat"]["Heat acceleration time"]
+				if heatrange then
+					self:SetAccelHeat( math.Approach(self:GetAccelHeat(), ( doo and 1 or 0 ), FrameTime() / ( doo and heatrange.min or heatrange.max ) ) )
+				end
+				if !self:GetOverheated() and self:GetAccelHeat() >= self.Stats["Heat"]["Overheated threshold"] then
+					--if self:SelAnims().oh_enter then self:SendAnim(self:SelAnims().oh_enter, 1) end
+					self:SetOverheated(true)
+				end
+				if self:GetOverheated() and self:GetAccelHeat() <= self.Stats["Heat"]["Recovery threshold"] then
+					--if self:SelAnims().oh_exit then self:SendAnim(self:SelAnims().oh_exit, 1) end
+					self:SetOverheated(false)
+				end
+			end
 		end
 
 		do -- Burst features

@@ -8,10 +8,13 @@ function SWEP:PrimaryAttack(forced)
 	if self:GetReloadDelay() > CurTime() then return false end
 	
 	if self.Stats["Function"]["Ammo required per shot"] > self:Clip1() then
-		--self:EmitSound( self.Stats["Appearance"]["Sounds"]["Dry"] )
-		--self:SetFireDelay( CurTime() + 0.2 )
+		self:EmitSound( self.Stats["Appearance"]["Sounds"]["Dry"] )
+		self:SetFireDelay( CurTime() + 0.2 )
 		return false
 	end
+
+	if self:GetOverheated() then return end
+	if self:GetBattery() >= 1 then return false end--if CLIENT then chat.AddText( string.FormattedTime(CurTime(), "[%i:%02i] ") .. "Battery depleted!") end self:SetFireDelay( CurTime() + 0.5 ) return false end
 
 	if self.Stats["Function"]["Shots fired maximum"].max != 0 and
 		self:GetBurstCount() >= self.Stats["Function"]["Shots fired maximum"].max then
@@ -30,6 +33,9 @@ function SWEP:PrimaryAttack(forced)
 	self:SetFireDelay( CurTime() + time )
 	self:SetFireRecoveryDelay( CurTime() + self.Stats["Function"]["Fire recovery delay"] )
 	self:SetBurstCount( self:GetBurstCount() + 1 )
+	if self.Stats["Battery"] and self.Stats["Battery"]["Age per shot"] then
+		self:SetBattery( math.Clamp(self:GetBattery() + self.Stats["Battery"]["Age per shot"], 0, 1) )
+	end
 
 	self:SendAnim( self.qa["fire"] )
 
