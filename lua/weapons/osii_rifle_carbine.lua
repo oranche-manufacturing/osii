@@ -39,7 +39,7 @@ SWEP.Stats	= { --Actually a burst weapon. Id rather name it "Burst Rifle", but a
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, -1),
+			["pos"] = Vector(0.25, 0, -1.5),
 			["ang"] = Angle(0, 0, 0)
 		},
 	},
@@ -80,7 +80,7 @@ SWEP.Stats	= { --Actually a burst weapon. Id rather name it "Burst Rifle", but a
 	},
 	["ADS"] = {
 		["Viewmodel"] = {
-			pos = Vector(-2, -4, 0.3),
+			pos = Vector(-1.5, -4, -0.3),
 			ang = Angle()
 		},
 		["FOV"] = 75,

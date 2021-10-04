@@ -164,9 +164,9 @@ function SWEP:Think()
 
 		-- Idles
 		if self:GetNextIdle() <= CurTime() then
-			if self:GetOverheated() then
+			if self:GetOverheated() and self.qa["idle_oh"] then
 				self:SendAnim(self.qa["idle_oh"])
-			else
+			elseif self.qa["idle"] then
 				self:SendAnim(self.qa["idle"])
 			end
 		end
@@ -268,13 +268,14 @@ function SWEP:GetViewModelPosition(pos, ang)
 	do -- Moving
 		local mult = Lerp( self:GetADSDelta(), 0.8, 0.4 ) * ( pvel / p:GetWalkSpeed() )
 		local spe = 1
-		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2 ) * 0.2 * mult )
-		offset.y = offset.y + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 4 ) * -0.2 * mult )
-		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2 ) * -0.5 * mult )
+		local shar = 1
+		offset.x = offset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2*shar ) * 0.2 * mult )
+		offset.y = offset.y + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 4*shar ) * -0.1 * mult )
+		offset.z = offset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2*shar ) * -0.25 * mult )
 
-		affset.x = affset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 4 * spe ), 2 ) * 1 * mult )
-		affset.y = affset.y + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2 ) * -1 * mult )
-		affset.z = affset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2 ) * 0.5 * mult )
+		affset.x = affset.x + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 4 * spe ), 2*shar ) * 0.5 * mult )
+		affset.y = affset.y + ( math.pow( math.sin( CurTime() * math.pi * 0.5 * 2 * spe ), 2*shar ) * -0.5 * mult )
+		affset.z = affset.z + ( math.pow( math.sin( CurTime() * math.pi * 2 * spe ), 2*shar ) * 1 * mult )
 	end
 
 	do -- Sway

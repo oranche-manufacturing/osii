@@ -39,7 +39,7 @@ SWEP.Stats	= {
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 0, -1),
+			["pos"] = Vector(0, 0, -2),
 			["ang"] = Angle(0, 0, 0)
 		},
 	},
