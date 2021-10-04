@@ -17,13 +17,13 @@ SWEP.UseHands				= true
 
 -- 3
 local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
-SWEP.Stats	= {
+SWEP.Stats	= { --Meant to be more of a partner to hardhitters like shotguns or sniper rifles
 	["Bullet"]		= {
 		["Count"]						= 1,
 		["Damage"]						= Range( 18, 18 ),
 		["Range"]						= Range( 250, 500 ), -- hammer units
 		["Spread"]						= Range( 1, 9 ), -- degrees, min to max
-		["Spread acceleration time"]	= Range( 0.3, 0.5 ), -- How long it takes to accurate
+		["Spread acceleration time"]	= Range( 0.5, 0.5 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
 	["Function"]	= {
