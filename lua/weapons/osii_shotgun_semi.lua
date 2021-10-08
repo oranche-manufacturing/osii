@@ -47,9 +47,9 @@ SWEP.Stats	= { --this is shit probably ill balance later lmao
 		},
 	},
 	["Magazines"]	= {
-		["Amount reloaded"]				= 1,
+		["Amount reloaded"]				= 8,
 		["Maximum loaded"]				= 8,
-		["Ammo type"]					= "ar2",
+		["Ammo type"]					= "buckshot",
 	},
 	["Animation"] = {
 		["idle"]	= {

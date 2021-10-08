@@ -152,7 +152,7 @@ function SWEP:Think()
 			end
 
 			if self:GetReloadingState() and self:GetReloadDelay() < CurTime() then
-				if self:Clip1() < self.Stats["Magazines"]["Maximum loaded"] and self:Ammo1() > 0 then
+				if self.qa["reload_insert"] and self:Clip1() < self.Stats["Magazines"]["Maximum loaded"] and self:Ammo1() > 0 then
 					self:InsertReload()
 				else
 					self:FinishReload()

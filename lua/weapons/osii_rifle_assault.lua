@@ -16,7 +16,7 @@ SWEP.WorldModel				= "models/weapons/w_rif_m4a1.mdl"
 SWEP.UseHands				= true
 
 -- 3
-local tpa = { ACT_HL2MP_GESTURE_RELOAD_PISTOL, ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL }
+local tpa = { ACT_HL2MP_GESTURE_RELOAD_AR2, ACT_HL2MP_GESTURE_RANGE_ATTACK_AR2 }
 SWEP.Stats	= {
 	["Bullet"]		= {
 		["Count"]						= 1,

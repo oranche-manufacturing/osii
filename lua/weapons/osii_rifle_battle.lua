@@ -52,9 +52,9 @@ SWEP.Stats	= { --semi-auto hard-hitter meant as an alternate to the Carbine
 		["Ammo type"]					= "ar2",
 	},
 	["Recoil"] = {
-		["Change per shot"]				= Range( 2, 2 ),
-		["Recoil acceleration time"]	= Range( 0, 0 ), -- How long it takes to accurate
-		["Function"]					= "One", -- Linear, Early, Very Early, Late, Very Late, Cosine, Zero, One
+		["Change per shot"]				= Range( 2, 8 ),
+		["Recoil acceleration time"]	= Range( 0.6, 0.25 ), -- How long it takes to accurate
+		["Function"]					= "Late", -- Linear, Early, Very Early, Late, Very Late, Cosine, Zero, One
 	},
 	["Animation"] = {
 		["idle"]	= {
