@@ -42,6 +42,9 @@ SWEP.Stats	= { --Meant to be more of a partner to hardhitters like shotguns or s
 			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-5, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "pistol",
+		},
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 22,

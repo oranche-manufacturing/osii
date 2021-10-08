@@ -47,6 +47,9 @@ SWEP.Stats	= {
 			["pos"] = Vector(-0.5, -3, -1),
 			["ang"] = Angle(0, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "crossbow",
+		},
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 200,

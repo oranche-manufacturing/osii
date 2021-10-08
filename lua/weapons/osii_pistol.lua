@@ -42,6 +42,9 @@ SWEP.Stats	= { --its a gun.
 			["pos"] = Vector(0, 2, -0.5),
 			["ang"] = Angle(0, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "pistol",
+		}
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 15,

@@ -202,7 +202,11 @@ function SWEP:CalcView(p, pos, ang, fov)
 end
 
 function SWEP:Deploy()
-	self:SetHoldType( "pistol" )
+	if self.Stats["Appearance"] and self.Stats["Appearance"]["Holdtypes"] then
+		self:SetHoldType( self.Stats["Appearance"]["Holdtypes"]["Active"] or "pistol" )
+	else
+		self:SetHoldType( "pistol" )
+	end
 	self:SetADSDelta(0)
 	self:SetReloadDelay(CurTime())
 

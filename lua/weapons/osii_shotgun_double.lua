@@ -42,6 +42,9 @@ SWEP.Stats	= { --Supposed to be for the shotgun users who want more accuracy or 
 			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-2, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "shotgun",
+		},
 		["Recoil mult"] = 16,
 		["Recoil decay"] = 48,
 	},

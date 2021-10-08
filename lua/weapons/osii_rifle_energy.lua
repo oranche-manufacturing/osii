@@ -47,6 +47,9 @@ SWEP.Stats	= { --Energy weapons do low damage but have infinite ammo and get mor
 			["pos"] = Vector(0, 0, -1),
 			["ang"] = Angle(0, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "ar2",
+		}
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 0,

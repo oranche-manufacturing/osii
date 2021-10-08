@@ -42,6 +42,9 @@ SWEP.Stats	= { --semi-auto hard-hitter meant as an alternate to the Carbine
 			["pos"] = Vector(0.25, 0, -0.5),
 			["ang"] = Angle(-2, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "ar2",
+		}
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 18,

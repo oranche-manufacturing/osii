@@ -42,6 +42,9 @@ SWEP.Stats	= { --Single most powerful weapon in the pack other than the Railgun.
 			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-2, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "ar2",
+		}
 		["Recoil mult"] = 8,
 		["Recoil decay"] = 16,
 	},

@@ -42,6 +42,9 @@ SWEP.Stats	= { --Actually a burst weapon. Id rather name it "Burst Rifle", but a
 			["pos"] = Vector(0.25, 0, -1.5),
 			["ang"] = Angle(0, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "ar2",
+		}
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 30,

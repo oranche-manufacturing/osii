@@ -42,6 +42,9 @@ SWEP.Stats	= {
 			["pos"] = Vector(-1, 0, -2),
 			["ang"] = Angle(-0.1, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "pistol",
+		},
 		["Recoil mult"] = 4,
 		["Recoil decay"] = 8,
 	},

@@ -42,6 +42,9 @@ SWEP.Stats	= { --wait what was this again i forget. sawed off? -OP
 			["pos"] = Vector(0, 0, -0.5),
 			["ang"] = Angle(-2, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "shotgun",
+		},
 		["Recoil mult"] = 10,
 		["Recoil decay"] = 32,
 	},

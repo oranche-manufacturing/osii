@@ -42,6 +42,9 @@ SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 			["pos"] = Vector(0, 0, -0.8),
 			["ang"] = Angle(-2, 0, 0)
 		},
+		["Holdtypes"] = {
+			["Active"] = "smg",
+		},
 	},
 	["Recoil"] = {
 		["Change per shot"]				= Range( 0.2, 1 ),
