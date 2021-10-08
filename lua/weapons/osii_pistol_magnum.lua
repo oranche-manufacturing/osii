@@ -39,8 +39,8 @@ SWEP.Stats	= { --Supposed to be a middle-ground between the capacity and recoil 
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0, 2, 0.5),
-			["ang"] = Angle(-5, 0, 0)
+			["pos"] = Vector(0, 2, -0.5),
+			["ang"] = Angle(0, 0, 0)
 		},
 		["Recoil mult"] = 4,
 		["Recoil decay"] = 16,

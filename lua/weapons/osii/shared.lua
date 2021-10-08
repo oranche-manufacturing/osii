@@ -7,6 +7,8 @@
 	- 
 ]]
 
+SWEP.OSII					= true
+
 -- 1
 SWEP.Spawnable				= false
 SWEP.Base					= "weapon_base"

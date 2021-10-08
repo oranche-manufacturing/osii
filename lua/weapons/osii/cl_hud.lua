@@ -50,35 +50,190 @@ local function MyDrawText(tbl)
 	surface.DrawText(tbl.text)
 end
 
+local noop = {
+	["CHudAmmo"] = true,
+}
+
+hook.Add("HUDShouldDraw", "OSII_HideHUD", function(name)
+	if !noop[name] then return end
+	if !LocalPlayer():IsValid() then return end
+	if !LocalPlayer():GetActiveWeapon().OSII then return end
+
+	return false
+end)
+
 function SWEP:DrawHUD()
-    do return end
 	local x1, y1 = 0, 0
 	local x2, y2 = ScrW(), ScrH()
+	local ss = ScreenScale(1)
 	local p = LocalPlayer()
 	local w = p:GetActiveWeapon()
-	local tobl = {
-		x = x1 + (x2*0.75),
-		y = y1 + (y2*0.9),
-		text = w:Clip1(),
-		font = "OSII_HUD_NumBig",
-		col = Color(255, 255, 255),
-		a_x = 0.5,
-		a_y = 0.5,
-		shadow = ssss*2
-	}
-	MyDrawText(tobl)
 
-	tobl.text = w:Ammo1()
-	tobl.font = "OSII_HUD_NumSmall"
-	tobl.y = y1 + (y2*0.96)
-	tobl.shadow = ssss*1.5
-	MyDrawText(tobl)
+	do
+		local tobl = {
+			x = x1 + (x2) - (ss*36),
+			y = y1 + (y2) - (ss*36),
+			text = w:Clip1(),
+			font = "OSII_HUD_NumBig",
+			col = Color(255, 255, 255),
+			a_x = 0.5,
+			a_y = 0.5,
+			shadow = ssss*2
+		}
+		MyDrawText(tobl)
 
-	tobl.text = "AMMO"
-	tobl.font = "OSII_HUD_TextSmall"
-	tobl.y = y1 + (y2*0.85)
-	tobl.shadow = ssss*1
-	MyDrawText(tobl)
+		tobl.text = w:Ammo1()
+		tobl.font = "OSII_HUD_NumSmall"
+		tobl.y = tobl.y + (ss*21)
+		tobl.shadow = ssss*1.5
+		MyDrawText(tobl)
+
+		tobl.text = "AMMO"
+		tobl.font = "OSII_HUD_TextSmall"
+		tobl.y = tobl.y - (ss*38)
+		tobl.shadow = ssss*1
+		MyDrawText(tobl)
+	end
+
+	if w.Stats["Heat"] then
+		local tobl = {
+			x = x1 + (x2) - (ss*84),
+			y = y1 + (y2) - (ss*15),
+			text = math.Round( ( ( 1 - w:GetBattery() ) * 100) ) .. "%",
+			font = "OSII_HUD_NumSmall",
+			col = Color(255, 255, 255),
+			a_x = 0.5,
+			a_y = 0.5,
+			shadow = ssss*1.5
+		}
+		MyDrawText(tobl)
+
+		tobl.text = "BATTERY"
+		tobl.font = "OSII_HUD_TextSmall"
+		tobl.y = tobl.y - (ss*12)
+		tobl.shadow = ssss*1
+		MyDrawText(tobl)
+
+		tobl.y = y1 + (y2) - (ss*15) - (ss*24)
+		tobl.text = math.Round( ( ( w:GetAccelHeat() ) * 100) ) .. "%"
+		tobl.font = "OSII_HUD_NumSmall"
+		tobl.shadow = ssss*1.5
+		MyDrawText(tobl)
+
+		tobl.text = "HEAT"
+		tobl.font = "OSII_HUD_TextSmall"
+		tobl.y = tobl.y - (ss*12)
+		tobl.shadow = ssss*1
+		MyDrawText(tobl)
+	end
+
+	
+	local x, y = x2/2, y2*0.9
+	
+	-- top
+	local cl = self:Clip1()
+
+	local len = 44*1
+	local wid = 4
+	local dist = ss*6
+
+	if false then	-- Mag
+		dist = ss*6
+		prog = (cl/self.Stats["Magazines"]["Maximum loaded"])
+		if prog == 0 then
+			local soos = math.sin( CurTime() * math.pi / 0.5 )
+			if soos > 0 then
+				surface.SetDrawColor(127, 0, 0, 127)
+			else
+				surface.SetDrawColor(col_s)
+			end
+		else
+			surface.SetDrawColor(col_s)
+		end
+		surface.DrawRect(x - (wid/2) + 16 + dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
+
+		if prog >= (2/3) then
+			surface.SetDrawColor(127, 255, 127, 255)
+		elseif prog >= (1/3) then
+			surface.SetDrawColor(255, 255, 127, 255)
+		elseif prog >= (0/3) then
+			surface.SetDrawColor(255, 127, 127, 255)
+		end
+		surface.DrawRect(x - (wid/2) + 16 + dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
+	end
+	
+	if w.Stats["Battery"] then	-- Battery
+		dist = ss*10
+		prog = 1-self:GetBattery()
+		if prog == 0 then
+			local soos = math.sin( CurTime() * math.pi / 0.5 )
+			if soos > 0 then
+				surface.SetDrawColor(127, 0, 0, 127)
+			else
+				surface.SetDrawColor(col_s)
+			end
+			surface.SetFont("DermaDefault")
+			surface.SetTextColor(color_white)
+			surface.SetTextPos(x + 16 + dist - (wid/2), y + (len/2))
+			surface.DrawText("Battery depleted!")
+		else
+			surface.SetDrawColor(col_s)
+		end
+		surface.DrawRect(x - (wid/2) + 16 + dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
+
+		if prog >= (2/3) then
+			surface.SetDrawColor(255, 255, 127, 255)
+		elseif prog >= (1/3) then
+			surface.SetDrawColor(255, 127 + 64, 127, 255)
+		elseif prog >= (0/3) then
+			surface.SetDrawColor(255, 63 + 32, 63 + 32, 255)
+		end
+		surface.DrawRect(x - (wid/2) + 16 + dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
+	end
+
+	if w.Stats["Function"]["Fire acceleration time"] then	-- Firerate
+		dist = ss*6
+		prog = self:GetAccelFirerate()
+		if true then--if prog > 0 then
+			if prog == 1 then
+				local soos = math.sin( CurTime() * math.pi / 0.5 )
+				if soos > 0 then
+					surface.SetDrawColor(127, 0, 0, 127)
+				else
+					surface.SetDrawColor(col_s)
+				end
+			else
+				surface.SetDrawColor(col_s)
+			end
+			surface.DrawRect(x - (wid/2) - 16 - dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
+
+			surface.SetDrawColor(Color(255, 55, 55))
+			surface.DrawRect(x - (wid/2) - 16 - dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
+		end
+	end
+
+	if w.Stats["Heat"] then	-- Heat
+		dist = ss*10
+		prog = self:GetAccelHeat()
+		if true then--if prog > 0 then
+			if self:GetOverheated() then
+				local soos = math.sin( CurTime() * math.pi / 0.5 )
+				if soos > 0 then
+					surface.SetDrawColor(127, 0, 0, 127)
+				else
+					surface.SetDrawColor(col_s)
+				end
+			else
+				surface.SetDrawColor(col_s)
+			end
+			surface.DrawRect(x - (wid/2) - 16 - dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
+
+			surface.SetDrawColor(Color(255, 255, 255))
+			surface.DrawRect(x - (wid/2) - 16 - dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
+		end
+	end
+
+
 end
 
 function SWEP:DoDrawCrosshair()
@@ -125,115 +280,6 @@ function SWEP:DoDrawCrosshair()
 
 		-- cent
 		surface.DrawRect(x - (wid/2), y - (wid/2), wid, wid)
-	end
-
-	
-	-- top
-	local cl = self:Clip1()
-
-	len = 44*1
-	wid = 4
-	local dist = ss*6
-
-	surface.SetTextColor(255, 255, 255, 255)
-	surface.SetTextPos(x + (wid/2) - (ss*6), y + len/2 + ss*8)
-	surface.SetFont("DermaDefault")
-	surface.DrawText("Heat, firerate | Capacity, battery")
-	
-	do	-- Mag
-		dist = ss*6
-		prog = (cl/self.Stats["Magazines"]["Maximum loaded"])
-		if prog == 0 then
-			local soos = math.sin( CurTime() * math.pi / 0.5 )
-			if soos > 0 then
-				surface.SetDrawColor(127, 0, 0, 127)
-			else
-				surface.SetDrawColor(col_s)
-			end
-		else
-			surface.SetDrawColor(col_s)
-		end
-		surface.DrawRect(x - (wid/2) + 16 + dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
-
-		if prog >= (2/3) then
-			surface.SetDrawColor(127, 255, 127, 255)
-		elseif prog >= (1/3) then
-			surface.SetDrawColor(255, 255, 127, 255)
-		elseif prog >= (0/3) then
-			surface.SetDrawColor(255, 127, 127, 255)
-		end
-		surface.DrawRect(x - (wid/2) + 16 + dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
-	end
-	
-	do	-- Battery
-		dist = ss*7
-		prog = 1-self:GetBattery()
-		if prog == 0 then
-			local soos = math.sin( CurTime() * math.pi / 0.5 )
-			if soos > 0 then
-				surface.SetDrawColor(127, 0, 0, 127)
-			else
-				surface.SetDrawColor(col_s)
-			end
-			surface.SetFont("DermaDefault")
-			surface.SetTextColor(color_white)
-			surface.SetTextPos(x + 16 + dist - (wid/2), y + (len/2))
-			surface.DrawText("Battery depleted!")
-		else
-			surface.SetDrawColor(col_s)
-		end
-		surface.DrawRect(x - (wid/2) + 16 + dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
-
-		if prog >= (2/3) then
-			surface.SetDrawColor(255, 255, 127, 255)
-		elseif prog >= (1/3) then
-			surface.SetDrawColor(255, 127 + 64, 127, 255)
-		elseif prog >= (0/3) then
-			surface.SetDrawColor(255, 63 + 32, 63 + 32, 255)
-		end
-		surface.DrawRect(x - (wid/2) + 16 + dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
-	end
-
-	do	-- Firerate
-		dist = ss*6
-		prog = self:GetAccelFirerate()
-		if true then--if prog > 0 then
-			if prog == 1 then
-				local soos = math.sin( CurTime() * math.pi / 0.5 )
-				if soos > 0 then
-					surface.SetDrawColor(127, 0, 0, 127)
-				else
-					surface.SetDrawColor(col_s)
-				end
-			else
-				surface.SetDrawColor(col_s)
-			end
-			surface.DrawRect(x - (wid/2) - 16 - dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
-
-			surface.SetDrawColor(Color(255, 55, 55))
-			surface.DrawRect(x - (wid/2) - 16 - dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
-		end
-	end
-
-	do	-- Heat
-		dist = ss*7
-		prog = self:GetAccelHeat()
-		if true then--if prog > 0 then
-			if self:GetOverheated() then
-				local soos = math.sin( CurTime() * math.pi / 0.5 )
-				if soos > 0 then
-					surface.SetDrawColor(127, 0, 0, 127)
-				else
-					surface.SetDrawColor(col_s)
-				end
-			else
-				surface.SetDrawColor(col_s)
-			end
-			surface.DrawRect(x - (wid/2) - 16 - dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
-
-			surface.SetDrawColor(Color(255, 255, 255))
-			surface.DrawRect(x - (wid/2) - 16 - dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
-		end
 	end
 
 	return true
