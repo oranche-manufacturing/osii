@@ -233,6 +233,28 @@ function SWEP:DrawHUD()
 		end
 	end
 
+	if w.Stats["Recoil"] and w.Stats["Recoil"]["Function"] then	-- Recoil
+		dist = ss*10
+		prog = self:GetAccelRecoil()
+		prog = funks[self.Stats["Recoil"]["Function"]](self:GetAccelRecoil())
+		if true then--if prog > 0 then
+			if self:GetOverheated() then
+				local soos = math.sin( CurTime() * math.pi / 0.5 )
+				if soos > 0 then
+					surface.SetDrawColor(127, 0, 0, 127)
+				else
+					surface.SetDrawColor(col_s)
+				end
+			else
+				surface.SetDrawColor(col_s)
+			end
+			surface.DrawRect(x - (wid/2) - 16 - dist + s_dist, y - (len/2) + (len - (len*1)) + s_dist, wid, len * 1)
+
+			surface.SetDrawColor(Color(255, 255, 255))
+			surface.DrawRect(x - (wid/2) - 16 - dist, y - (len/2) + (len - (len*prog)), wid, len * prog)
+		end
+	end
+
 
 end
 

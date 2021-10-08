@@ -1,6 +1,33 @@
 
 -- Firing
 
+funks = {
+	["Linear"] = function(i)
+		return Lerp( i, 0, 1 )
+	end,
+	["Very Early"] = function(i)
+		return Lerp( math.pow( math.sin( i * math.pi * 0.5 ), 0.5 ), 0, 1 )
+	end,
+	["Early"] = function(i)
+		return Lerp( math.pow( math.sin( i * math.pi * 0.5 ), 1 ), 0, 1 )
+	end,
+	["Late"] = function(i)
+		return Lerp( math.pow( math.sin( i * math.pi * 0.5 ), 2 ), 0, 1 )
+	end,
+	["Very Late"] = function(i)
+		return Lerp( math.pow( math.sin( i * math.pi * 0.5 ), 3 ), 0, 1 )
+	end,
+	["Cosine"] = function(i)
+		return Lerp( math.pow( math.cos( i * math.pi * 0.5 ), 1 ), 0, 1 )
+	end,
+	["Zero"] = function(i)
+		return 0
+	end,
+	["One"] = function(i)
+		return 1
+	end,
+}
+
 function SWEP:PrimaryAttack(forced)
 	local p = self:GetOwner()
 	if self:GetFireDelay() > CurTime() then return false end
@@ -42,6 +69,18 @@ function SWEP:PrimaryAttack(forced)
 	self:SetClip1( math.max( self:Clip1() - self.Stats["Function"]["Ammo used per shot"], 0) )
 
 	if p:IsPlayer() then
+		local fun = funks["Linear"]
+		local fuckly = 0
+
+		if self.Stats["Recoil"] then
+			local trolly = self.Stats["Recoil"]["Change per shot"]
+			fun = funks[ self.Stats["Recoil"]["Function"] ]
+
+			fuckly = Lerp( fun(self:GetAccelRecoil()), trolly.min, trolly.max )
+		end
+
+		p:SetEyeAngles( p:EyeAngles() + Angle( fuckly * (-1), 0, 0 ) )
+
 		p.randv = VectorRand() * ( self.Stats["Appearance"]["Recoil mult"] or 1 )
 	end	
 end

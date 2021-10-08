@@ -43,6 +43,11 @@ SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 			["ang"] = Angle(-2, 0, 0)
 		},
 	},
+	["Recoil"] = {
+		["Change per shot"]				= Range( 0.2, 1 ),
+		["Recoil acceleration time"]	= Range( 1, 1 ), -- How long it takes to accurate
+		["Function"]					= "Very Late", -- Linear, Early, Very Early, Late, Very Late, Cosine, Zero, One
+	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 30,
 		["Maximum loaded"]				= 30,

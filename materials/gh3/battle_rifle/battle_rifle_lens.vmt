@@ -1,0 +1,14 @@
+VertexLitGeneric
+{
+	$basetexture			"gh3/battle_rifle/battle_rifle"
+	
+	$envmap					env_cubemap
+	$envmaptint				"[ 0 0 0.5 ]"
+	
+	$halflambert			1
+	
+	$phong					1
+	$phongboost				1
+	$phongexponent 			1
+	$phongfresnelranges		"[ 1 1 1 ]"
+}

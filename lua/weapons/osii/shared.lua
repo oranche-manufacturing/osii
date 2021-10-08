@@ -68,6 +68,7 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 8, "AccelInaccuracy")
 	self:NetworkVar("Float", 9, "AccelHeat")
 	self:NetworkVar("Float", 10, "Battery")
+	self:NetworkVar("Float", 11, "AccelRecoil")
 
 	self:NetworkVar("Bool", 0, "ReloadingState")
 	self:NetworkVar("Bool", 1, "Overheated")
@@ -89,6 +90,13 @@ function SWEP:Think()
 			local inaccrange = self.Stats["Bullet"]["Spread acceleration time"]
 			if inaccrange then
 				self:SetAccelInaccuracy( math.Approach(self:GetAccelInaccuracy(), ( doo and 1 or 0 ), FrameTime() / ( doo and inaccrange.min or inaccrange.max ) ) )
+			end
+
+			if self.Stats["Recoil"] then
+				local recrange = self.Stats["Recoil"]["Recoil acceleration time"]
+				if recrange then
+					self:SetAccelRecoil( math.Approach(self:GetAccelRecoil(), ( doo and 1 or 0 ), FrameTime() / ( doo and recrange.min or recrange.max ) ) )
+				end
 			end
 
 			if self.Stats["Heat"] then

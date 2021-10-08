@@ -11,7 +11,7 @@ SWEP.SlotPos				= 0
 
 -- 2
 SWEP.ViewModelFOV			= 60
-SWEP.ViewModel				= "models/gh3_temp/fp/assault_rifle.mdl"
+SWEP.ViewModel				= "models/gh3_temp/fp/battle_rifle.mdl"
 SWEP.WorldModel				= "models/weapons/w_rif_m4a1.mdl"
 SWEP.UseHands				= true
 
@@ -39,14 +39,19 @@ SWEP.Stats	= { --semi-auto hard-hitter meant as an alternate to the Carbine
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {
-			["pos"] = Vector(0.25, 0, -1.5),
-			["ang"] = Angle(0, 0, 0)
+			["pos"] = Vector(0.25, 0, -0.5),
+			["ang"] = Angle(-2, 0, 0)
 		},
 	},
 	["Magazines"]	= {
 		["Amount reloaded"]				= 18,
 		["Maximum loaded"]				= 18,
 		["Ammo type"]					= "ar2",
+	},
+	["Recoil"] = {
+		["Change per shot"]				= Range( 2, 2 ),
+		["Recoil acceleration time"]	= Range( 0, 0 ), -- How long it takes to accurate
+		["Function"]					= "One", -- Linear, Early, Very Early, Late, Very Late, Cosine, Zero, One
 	},
 	["Animation"] = {
 		["idle"]	= {
@@ -55,15 +60,18 @@ SWEP.Stats	= { --semi-auto hard-hitter meant as an alternate to the Carbine
 		["fire"]	= {
 			{
 				seq = "fire1",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				rate = 0.5,
 			},
 			{
 				seq = "fire2",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				rate = 0.5,
 			},
 			{
 				seq = "fire3",
-				tpanim = tpa[2]
+				tpanim = tpa[2],
+				rate = 0.5,
 			},
 		},
 		["reload"]	= {
@@ -83,7 +91,7 @@ SWEP.Stats	= { --semi-auto hard-hitter meant as an alternate to the Carbine
 			pos = Vector(-1.5, -4, -0.3),
 			ang = Angle()
 		},
-		["FOV"] = 75,
+		["FOV"] = 60,
 		["Time"] = 0.3,
 	}
 }
