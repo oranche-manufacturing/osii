@@ -22,7 +22,7 @@ SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 		["Count"]						= 1,
 		["Damage"]						= Range( 20, 20 ),
 		["Range"]						= Range( 300, 600 ), -- hammer units
-		["Spread"]						= Range( 0.5, 5 ), -- degrees, min to max
+		["Spread"]						= Range( 2.5, 9 ), -- degrees, min to max
 		["Spread acceleration time"]	= Range( 0.6, 0.4 ), -- How long it takes to accurate
 		["Force"]						= 1
 	},
