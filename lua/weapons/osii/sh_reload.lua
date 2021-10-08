@@ -13,6 +13,8 @@ end
 
 function SWEP:StartReload()
 	if self:GetReloadingState() then return end
+	self:SetReloadingState(true)
+	self:SetBurstCount(0)
 
 	local selanim = nil
 	if self.qa["reload_enter"] then
@@ -31,10 +33,6 @@ function SWEP:StartReload()
 	if playa then
 		self:SetReloadDelay( CurTime() + playa[1] )
 	end
-
-	self:SetReloadingState(true)
-	self:SetBurstCount(0)
-	self:SetReloadDelay( CurTime() + self:GetVM():SequenceDuration() )
 end
 
 function SWEP:InsertReload()

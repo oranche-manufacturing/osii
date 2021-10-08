@@ -21,6 +21,18 @@ local addsound = {
 		},
 	},
 	{
+		name = "OSII.Turret.Fire",
+		channel = chans.weapfire,
+		volume = 0.5,
+		level = 140,
+		pitch = pn,
+		sound = {
+			")osii/weap/turret/fire1.wav",
+			")osii/weap/turret/fire2.wav",
+			")osii/weap/turret/fire3.wav",
+		},
+	},
+	{
 		name = "OSII.Shotgun.Fire",
 		channel = chans.weapfire,
 		volume = 0.5,

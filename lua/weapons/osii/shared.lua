@@ -72,6 +72,8 @@ function SWEP:SetupDataTables()
 
 	self:NetworkVar("Bool", 0, "ReloadingState")
 	self:NetworkVar("Bool", 1, "Overheated")
+
+	self:NetworkVar("Entity", 0, "Emplacement")
 end
 
 function SWEP:Think()
@@ -193,6 +195,8 @@ function SWEP:AdjustMouseSensitivity(def)
 	end
 end
 
+
+-- First person
 function SWEP:CalcView(p, pos, ang, fov)
 	if p.randv then
 		pos = pos + p.randv
@@ -200,12 +204,35 @@ function SWEP:CalcView(p, pos, ang, fov)
 
 	return pos, ang, fov
 end
+-- Third person
+hook.Add("CalcView", "OSII_CalcView", function( p, pos, ang, fov )
+	local w = p:GetActiveWeapon()
+	if IsValid(w) and w.OSII then
+		if w.Stats["Appearance"]["Third Person"] then
+			local tpa = w.Stats["Appearance"]["Third Person"]
+			local view = {
+				origin = pos,
+				angles = angles,
+				fov = tpa.fov or fov,
+				drawviewer = true
+			}
+
+			p.OSII_TP = p.OSII_TP or 0
+			local att = p:GetAttachment(p:LookupAttachment("eyes"))
+			view.origin = LerpVector( p.OSII_TP, att.Pos, pos ) + LerpVector( p.OSII_TP, vector_origin, ( ang:Right() * tpa.pos.x ) + ( ang:Forward() * tpa.pos.y ) + ( ang:Up() * tpa.pos.z ) ) 
+			p.OSII_TP = math.Approach(p.OSII_TP, 1, FrameTime()/0.3)
+
+			return view
+		end
+	end
+end)
 
 function SWEP:Deploy()
-	self:SetHoldType( "pistol" )
+	self:SetHoldType( self.Stats["Appearance"]["Holdtypes"]["Active"] or "pistol" )
 	self:SetADSDelta(0)
 	self:SetReloadDelay(CurTime())
 
+	self:GetOwner().OSII_TP = 0
 	local playa = self:SendAnim( self.qa["draw"] )
 	if playa then
 		self:SetReloadDelay( CurTime() + playa[1] )
@@ -217,6 +244,11 @@ end
 function SWEP:Holster( wep )
 	self:SetReloadLoadDelay(0)
 	self:SetReloadingState(false)
+
+	self:GetOwner().OSII_TP = 0
+	if SERVER and IsValid(self:GetEmplacement()) then
+		self:Remove()
+	end
 
 	return true
 end
