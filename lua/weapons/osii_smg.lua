@@ -35,7 +35,7 @@ SWEP.Stats	= { --The idea is that this is just a superior Machine Pistol. -OP
 	},
 	["Appearance"]	= {
 		["Sounds"]		= {
-			["Fire"]					= "OSII.Pistol.Fire",
+			["Fire"]					= "OSII.SMG.Fire",
 			["Dry"]						= "OSII.Pistol.Dry",
 		},
 		["Viewmodel"] = {

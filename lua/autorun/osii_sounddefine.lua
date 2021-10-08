@@ -138,7 +138,12 @@ local addsound = {
 		volume = 0.5,
 		level = 140,
 		pitch = pn,
-		sound = ")weapons/smg1/smg1_fire1.wav",
+		sound = {
+			")osii/weap/smg/fire1.wav",
+			")osii/weap/smg/fire2.wav",
+			")osii/weap/smg/fire3.wav",
+			")osii/weap/smg/fire4.wav",
+		},
 	},
 	{
 		name = "OSII.MG_Light.Fire",
