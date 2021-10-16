@@ -64,7 +64,7 @@ function SWEP:PrimaryAttack(forced)
 		self:SetBattery( math.Clamp(self:GetBattery() + self.Stats["Battery"]["Age per shot"], 0, 1) )
 	end
 
-	self:SendAnim( self.qa["fire"] )
+	if self.qa["fire"] then self:SendAnim( self.qa["fire"] ) end
 
 	self:SetClip1( math.max( self:Clip1() - self.Stats["Function"]["Ammo used per shot"], 0) )
 
